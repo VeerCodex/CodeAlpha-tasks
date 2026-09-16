@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile & Order History — AlphaStore | CodeAlpha Task 1</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .profile-page-wrap {
+      padding: 3rem 0 5rem;
+    }
+    .profile-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      backdrop-filter: var(--blur-glass);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .profile-user-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .profile-avatar-large {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      border: 3px solid var(--accent-primary);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    .profile-user-info h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+    .profile-user-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Stats widgets */
+    .profile-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 768px) {
+      .profile-stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .stat-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.15rem;
+    }
+    .stat-card p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Order History Card */
+    .orders-section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      backdrop-filter: var(--blur-glass);
+    }
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.25rem;
+    }
+    .orders-table th {
+      text-align: left;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .orders-table td {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-confirmed {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--text-highlight);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .status-delivered {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+        </div>
+        <div class="brand-name">Alpha<span>Store</span><span class="brand-badge">PROFILE</span></div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-link">Storefront</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <button class="btn-secondary" style="padding: 0.45rem 1rem; font-size: 0.85rem;" onclick="auth.logout()">
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Profile Content -->
+  <main class="container profile-page-wrap">
+    
+    <!-- User Overview Header -->
+    <div class="profile-header-card">
+      <div class="profile-user-info">
+        <img id="userAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" class="profile-avatar-large">
+        <div>
+          <h1 id="userFullName">Loading user...</h1>
+          <p id="userEmail">user@codealpha.com</p>
+        </div>
+      </div>
+      <div>
+        <a href="index.html#catalog" class="btn-primary">
+          Explore Products
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="profile-stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-primary);">📦</div>
+        <div>
+          <h3 id="statTotalOrders">0</h3>
+          <p>Orders Placed</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success);">💰</div>
+        <div>
+          <h3 id="statTotalSpent">$0.00</h3>
+          <p>Lifetime Spending</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-warning);">⭐</div>
+        <div>
+          <h3 id="statMemberTier">VIP Tier</h3>
+          <p>Membership Status</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders History -->
+    <section class="orders-section-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1.35rem;">Your Order History</h2>
+        <span style="font-size: 0.85rem; color: var(--text-muted);" id="ordersCountLabel">Loading orders...</span>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>Items</th>
+              <th>Payment Method</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Order Receipt Modal -->
+  <div class="modal-overlay" id="receiptModalOverlay">
+    <div class="modal-card" style="max-width: 560px;">
+      <button class="modal-close-btn" onclick="closeReceiptModal()">✕</button>
+      <div style="padding: 2rem;" id="receiptModalBody">
+        <!-- Injected receipt -->
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    async function loadProfileDashboard() {
+      if (!auth.isLoggedIn()) {
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      try {
+        const res = await api.getProfile();
+        if (res.success && res.user) {
+          document.getElementById('userFullName').textContent = res.user.name;
+          document.getElementById('userEmail').textContent = res.user.email;
+          document.getElementById('userAvatarImg').src = res.user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${res.user.name}`;
+          document.getElementById('statTotalOrders').textContent = res.stats.orderCount;
+          document.getElementById('statTotalSpent').textContent = `$${res.stats.totalSpent.toFixed(2)}`;
+        }
+
+        // Load Orders
+        const ordersRes = await api.getMyOrders();
+        const ordersTable = document.getElementById('ordersTableBody');
+        const countLabel = document.getElementById('ordersCountLabel');
+
+        if (ordersRes.success) {
+          countLabel.textContent = `${ordersRes.orders.length} orders found`;
+
+          if (ordersRes.orders.length === 0) {
+            ordersTable.innerHTML = `
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                  You have not placed any orders yet.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          ordersTable.innerHTML = ordersRes.orders.map(o => {
+            const statusClass = o.status === 'Delivered' ? 'status-delivered' : 'status-confirmed';
+            const itemsSummary = o.items.map(i => `${i.quantity}x ${i.name.substring(0, 18)}...`).join(', ');
+
+            return `
+              <tr>
+                <td><strong style="color: var(--text-highlight);">${o.id}</strong></td>
+                <td>${new Date(o.date).toLocaleDateString()}</td>
+                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${itemsSummary}">
+                  ${itemsSummary}
+                </td>
+                <td>${o.paymentMethod || 'Credit Card'}</td>
+                <td><strong style="color: var(--text-primary);">$${o.total.toFixed(2)}</strong></td>
+                <td><span class="status-badge ${statusClass}">${o.status}</span></td>
+                <td>
+                  <button class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="viewReceipt('${o.id}')">
+                    Receipt
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error('Failed to load profile', err);
+      }
+    }
+
+    async function viewReceipt(orderId) {
+      try {
+        const res = await api.getOrderById(orderId);
+        if (res.success && res.order) {
+          const o = res.order;
+          const body = document.getElementById('receiptModalBody');
+          body.innerHTML = `
+            <h2 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Order Receipt</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">Official CodeAlpha Purchase Summary</p>
+
+            <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.88rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                <span style="color: var(--text-muted);">Order ID:</span>
+                <strong>${o.id}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                <span style="color: var(--text-muted);">Date:</span>
+                <span>${new Date(o.date).toLocaleString()}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                <span style="color: var(--text-muted);">Status:</span>
+                <span style="color: var(--accent-success); font-weight: 600;">${o.status}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Payment:</span>
+                <span>${o.paymentMethod}</span>
+              </div>
+            </div>
+
+            <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Items:</h4>
+            <div style="margin-bottom: 1rem;">
+              ${o.items.map(item => `
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.35rem 0; border-bottom: 1px solid var(--border-subtle);">
+                  <span>${item.quantity}x ${item.name}</span>
+                  <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; border-top: 2px dashed var(--border-subtle); padding-top: 0.75rem;">
+              <span>Total Paid:</span>
+              <span style="color: var(--accent-success);">$${o.total.toFixed(2)}</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: center;">
+              <button class="btn-primary" onclick="window.print()" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">
+                🖨️ Print Receipt
+              </button>
+            </div>
+          `;
+          document.getElementById('receiptModalOverlay').classList.add('open');
+        }
+      } catch (err) {
+        window.showToast('Could not fetch receipt', 'error');
+      }
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModalOverlay').classList.remove('open');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProfileDashboard);
+  </script>
+</body>
+</html>

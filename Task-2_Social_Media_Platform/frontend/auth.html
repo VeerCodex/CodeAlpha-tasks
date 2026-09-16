@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In / Join — PulseAlpha | CodeAlpha Task 2</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .auth-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .auth-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 440px;
+      padding: 2.25rem;
+      backdrop-filter: var(--blur);
+      box-shadow: var(--shadow-lg);
+    }
+    .auth-tabs-row {
+      display: flex;
+      background: var(--bg-input);
+      border-radius: var(--radius-full);
+      padding: 0.3rem;
+      margin-bottom: 2rem;
+    }
+    .auth-tab-choice {
+      flex: 1;
+      padding: 0.6rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border-radius: var(--radius-full);
+      transition: all 0.2s ease;
+    }
+    .auth-tab-choice.active {
+      background: var(--accent-primary);
+      color: white;
+    }
+    .form-field {
+      margin-bottom: 1.25rem;
+    }
+    .form-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 0.4rem;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      color: var(--text-main);
+      font-size: 0.92rem;
+    }
+    .form-input:focus {
+      border-color: var(--accent-primary);
+    }
+    .btn-auth-submit {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.85rem;
+      font-size: 0.95rem;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-box">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div class="brand-logo-social" style="justify-content: center; margin-bottom: 0.5rem;">
+          <div class="brand-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div class="brand-name-text">Pulse<span>Alpha</span></div>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">CodeAlpha Task 2: Social Media Platform</p>
+      </div>
+
+      <div class="auth-tabs-row">
+        <button class="auth-tab-choice active" id="tabLogin" onclick="switchAuth('login')">Sign In</button>
+        <button class="auth-tab-choice" id="tabRegister" onclick="switchAuth('register')">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="doLogin(event)">
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="demo@codealpha.com" required>
+        </div>
+        <div class="form-field">
+          <label>Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-publish btn-auth-submit" id="btnLoginSubmit">
+          Enter PulseAlpha
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display: none;" onsubmit="doRegister(event)">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input type="text" id="regName" class="form-input" placeholder="e.g. Veernarayan" required>
+        </div>
+        <div class="form-field">
+          <label>Username Handle</label>
+          <input type="text" id="regHandle" class="form-input" placeholder="e.g. veernarayan_dev" required>
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="regEmail" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <div class="form-field">
+          <label>Password (min 6 chars)</label>
+          <input type="password" id="regPassword" class="form-input" placeholder="••••••••" minlength="6" required>
+        </div>
+        <button type="submit" class="btn-publish btn-auth-submit" id="btnRegSubmit">
+          Create Account
+        </button>
+      </form>
+
+      <!-- Evaluator Auto-fill Demo Box -->
+      <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); text-align: center;">
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;">Testing as CodeAlpha Evaluator?</p>
+        <button type="button" class="btn-follow-toggle" onclick="autoFillTester()" style="padding: 0.45rem 1.25rem;">
+          ⚡ Auto-Fill Demo Credentials
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function switchAuth(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const tabLogin = document.getElementById('tabLogin');
+      const tabRegister = document.getElementById('tabRegister');
+
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        tabLogin.classList.add('active');
+        tabRegister.classList.remove('active');
+      } else {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        tabLogin.classList.remove('active');
+        tabRegister.classList.add('active');
+      }
+    }
+
+    function autoFillTester() {
+      switchAuth('login');
+      document.getElementById('loginEmail').value = 'demo@codealpha.com';
+      document.getElementById('loginPassword').value = 'password123';
+      window.showToast('Demo credentials filled: demo@codealpha.com', 'info');
+    }
+
+    async function doLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('btnLoginSubmit');
+
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+
+      try {
+        const res = await api.login(email, password);
+        if (res.success && res.token) {
+          auth.setSession(res.token, res.user);
+          window.showToast(`Welcome back, ${res.user.name}!`, 'success');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 800);
+        } else {
+          window.showToast(res.message || 'Login failed', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Enter PulseAlpha';
+        }
+      } catch (err) {
+        window.showToast('Server connection error', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Enter PulseAlpha';
+      }
+    }
+
+    async function doRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const handle = document.getElementById('regHandle').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const btn = document.getElementById('btnRegSubmit');
+
+      btn.disabled = true;
+      btn.textContent = 'Creating...';
+
+      try {
+        const res = await api.register({ name, handle, email, password });
+        if (res.success && res.token) {
+          auth.setSession(res.token, res.user);
+          window.showToast('Account created successfully!', 'success');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 800);
+        } else {
+          window.showToast(res.message || 'Registration failed', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Create Account';
+        }
+      } catch (err) {
+        window.showToast('Server connection error', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    }
+  </script>
+</body>
+</html>

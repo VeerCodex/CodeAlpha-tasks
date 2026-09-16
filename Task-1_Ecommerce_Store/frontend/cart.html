@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout & Cart — AlphaStore | CodeAlpha Task 1</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .checkout-page-wrap {
+      padding: 3rem 0 5rem;
+    }
+    /* Steps Bar */
+    .steps-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .step-indicator-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .step-circle {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+    .step-indicator-item.active .step-circle {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    }
+    .step-indicator-item.active {
+      color: var(--text-primary);
+    }
+    .step-indicator-item.completed .step-circle {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+    .step-divider-line {
+      width: 40px;
+      height: 2px;
+      background: var(--border-subtle);
+    }
+
+    /* Checkout Layout Grid */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cart Table */
+    .cart-table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      backdrop-filter: var(--blur-glass);
+    }
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-table th {
+      text-align: left;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      font-weight: 600;
+    }
+    .cart-table-row td {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    .table-prod-cell {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .table-prod-img {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: #000;
+    }
+    .table-prod-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      max-width: 260px;
+    }
+    .table-prod-cat {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .table-price-cell {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .table-subtotal-cell {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-highlight);
+    }
+    .remove-btn-icon {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      color: var(--accent-danger);
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+    .remove-btn-icon:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    /* Checkout Form Elements */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      transition: border-color var(--transition-fast);
+    }
+    .form-control:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Payment Option Selectors */
+    .payment-options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .payment-options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .payment-option-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .payment-option-card:hover {
+      border-color: var(--accent-primary);
+    }
+    .payment-option-card.active {
+      border-color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.12);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    }
+    .payment-option-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .payment-option-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Summary Card */
+    .summary-card-sticky {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      position: sticky;
+      top: 6rem;
+      backdrop-filter: var(--blur-glass);
+    }
+    .summary-card-sticky h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Order Confirmation Receipt Modal */
+    .order-success-box {
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+    .success-badge-icon {
+      width: 4.5rem;
+      height: 4.5rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid var(--accent-success);
+      color: var(--accent-success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+    }
+    .receipt-details-table {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+        </div>
+        <div class="brand-name">Alpha<span>Store</span><span class="brand-badge">CHECKOUT</span></div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-link">← Back to Catalog</a>
+        <div id="navAuthContainer"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Container -->
+  <main class="container checkout-page-wrap">
+    
+    <!-- Empty Cart Placeholder -->
+    <div id="cartEmptyMessage" style="display: none; text-align: center; padding: 6rem 1rem;">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Your Cart is Empty</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Looks like you haven't added any products yet.</p>
+      <a href="index.html" class="btn-primary">Browse Catalog</a>
+    </div>
+
+    <!-- Main Active Flow -->
+    <div id="checkoutMainContent">
+      <!-- Steps Indicator -->
+      <div class="steps-nav-bar">
+        <div class="step-indicator-item active" id="stepIndicator1">
+          <div class="step-circle">1</div>
+          <span>Review Cart</span>
+        </div>
+        <div class="step-divider-line"></div>
+        <div class="step-indicator-item" id="stepIndicator2">
+          <div class="step-circle">2</div>
+          <span>Shipping Info</span>
+        </div>
+        <div class="step-divider-line"></div>
+        <div class="step-indicator-item" id="stepIndicator3">
+          <div class="step-circle">3</div>
+          <span>Payment & Order</span>
+        </div>
+      </div>
+
+      <div class="checkout-grid">
+        <!-- Left Side: Wizard Steps -->
+        <div class="checkout-left-column">
+
+          <!-- STEP 1: CART REVIEW PANE -->
+          <div class="checkout-step-pane" id="stepPane1">
+            <div class="cart-table-card">
+              <h2 style="font-size: 1.3rem; margin-bottom: 1.25rem;">Items in Your Shopping Bag</h2>
+              <div style="overflow-x: auto;">
+                <table class="cart-table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Subtotal</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="cartTableBody">
+                    <!-- Dynamically injected rows -->
+                  </tbody>
+                </table>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+                <a href="index.html" class="btn-secondary" style="font-size: 0.85rem;">
+                  ← Continue Shopping
+                </a>
+                <button class="btn-primary" id="btnProceedToShipping">
+                  <span>Proceed to Shipping Details</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: SHIPPING DETAILS PANE -->
+          <div class="checkout-step-pane" id="stepPane2" style="display: none;">
+            <div class="cart-table-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.3rem;">Shipping Address</h2>
+                <button type="button" class="btn-secondary" style="font-size: 0.78rem; padding: 0.4rem 0.85rem;" onclick="checkout.fillDemoShipping()">
+                  ⚡ Fill Demo Details
+                </button>
+              </div>
+
+              <form id="shippingForm" onsubmit="event.preventDefault();">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="shipFullName">Full Name *</label>
+                    <input type="text" id="shipFullName" class="form-control" placeholder="e.g. Veernarayan Intern" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipEmail">Email Address *</label>
+                    <input type="email" id="shipEmail" class="form-control" placeholder="demo@codealpha.com" required>
+                  </div>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="shipPhone">Phone Number *</label>
+                    <input type="tel" id="shipPhone" class="form-control" placeholder="+91 98765 43210" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipStreet">Street Address *</label>
+                    <input type="text" id="shipStreet" class="form-control" placeholder="42 Innovation Boulevard, Tech Park" required>
+                  </div>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="shipCity">City *</label>
+                    <input type="text" id="shipCity" class="form-control" placeholder="Bengaluru" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipState">State / Province</label>
+                    <input type="text" id="shipState" class="form-control" placeholder="Karnataka">
+                  </div>
+                </div>
+
+                <div class="form-group" style="max-width: 250px;">
+                  <label for="shipPincode">Postal / PIN Code *</label>
+                  <input type="text" id="shipPincode" class="form-control" placeholder="560100" required>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+                  <button type="button" class="btn-secondary" onclick="checkout.setStep(1)">
+                    ← Back to Cart
+                  </button>
+                  <button type="button" class="btn-primary" id="btnProceedToPayment">
+                    <span>Continue to Payment</span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- STEP 3: PAYMENT METHOD PANE -->
+          <div class="checkout-step-pane" id="stepPane3" style="display: none;">
+            <div class="cart-table-card">
+              <h2 style="font-size: 1.3rem; margin-bottom: 1.25rem;">Select Payment Method</h2>
+
+              <div class="payment-options-grid">
+                <div class="payment-option-card active" data-method="card">
+                  <div class="payment-option-icon">💳</div>
+                  <div class="payment-option-title">Credit / Debit Card</div>
+                </div>
+                <div class="payment-option-card" data-method="upi">
+                  <div class="payment-option-icon">📱</div>
+                  <div class="payment-option-title">UPI / NetBanking</div>
+                </div>
+                <div class="payment-option-card" data-method="cod">
+                  <div class="payment-option-icon">💵</div>
+                  <div class="payment-option-title">Cash on Delivery</div>
+                </div>
+              </div>
+
+              <!-- Card Details Box -->
+              <div id="cardPaymentFields" style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                <div class="form-group">
+                  <label>Card Number</label>
+                  <input type="text" class="form-control" placeholder="4242 •••• •••• 4242" value="4242 8899 1122 3344">
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label>Expiration Date</label>
+                    <input type="text" class="form-control" placeholder="MM / YY" value="12/28">
+                  </div>
+                  <div class="form-group">
+                    <label>Security CVV</label>
+                    <input type="password" class="form-control" placeholder="•••" value="888" maxlength="4">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Name on Card</label>
+                  <input type="text" class="form-control" placeholder="Cardholder Name" value="Veernarayan">
+                </div>
+              </div>
+
+              <!-- UPI Details Box -->
+              <div id="upiPaymentFields" style="display: none; background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                <div class="form-group">
+                  <label>Virtual Payment Address (UPI ID)</label>
+                  <input type="text" class="form-control" placeholder="e.g. username@okhdfcbank" value="veernarayan@upi">
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">A payment prompt will be simulated instantly.</p>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+                <button type="button" class="btn-secondary" onclick="checkout.setStep(2)">
+                  ← Back to Shipping
+                </button>
+                <button type="button" class="btn-primary" id="btnPlaceOrder">
+                  <span>Complete Purchase</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Order Summary Sticky Box -->
+        <aside class="checkout-right-column">
+          <div class="summary-card-sticky">
+            <h3>Order Summary</h3>
+
+            <div class="summary-line">
+              <span>Items Subtotal</span>
+              <span class="checkout-subtotal-val">$0.00</span>
+            </div>
+            <div class="summary-line">
+              <span>Coupon Discount</span>
+              <span class="checkout-discount-val" style="color: var(--accent-success);">$0.00</span>
+            </div>
+            <div class="summary-line">
+              <span>Estimated Shipping</span>
+              <span class="checkout-shipping-val">$0.00</span>
+            </div>
+            <div class="summary-line total">
+              <span>Grand Total</span>
+              <span class="checkout-total-val">$0.00</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+              <p style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem;">
+                <span>🔒</span> 256-Bit SSL Secured Encryption
+              </p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem;">
+                <span>📦</span> Free Shipping on orders over $150
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Order Success Confirmation Modal -->
+  <div class="modal-overlay" id="orderSuccessModal">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="order-success-box">
+        <div class="success-badge-icon">✓</div>
+        <h2 style="font-size: 1.7rem; margin-bottom: 0.5rem;">Thank You for Your Order!</h2>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Your order has been recorded into the persistent database and is confirmed.
+        </p>
+
+        <div class="receipt-details-table">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            <span style="color: var(--text-muted);">Order Number:</span>
+            <strong id="confirmOrderId" style="color: var(--text-highlight);">ORD-00000</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            <span style="color: var(--text-muted);">Order Date:</span>
+            <span id="confirmOrderDate">Today</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            <span style="color: var(--text-muted);">Delivering to:</span>
+            <span id="confirmOrderRecipient">Veernarayan</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            <span style="color: var(--text-muted);">Payment:</span>
+            <span id="confirmOrderPayMethod">Credit Card</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 700; border-top: 1px dashed var(--border-subtle); padding-top: 0.6rem; margin-top: 0.6rem;">
+            <span>Total Paid:</span>
+            <span id="confirmOrderTotal" style="color: var(--accent-success);">$0.00</span>
+          </div>
+
+          <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Ordered Items:</div>
+            <div id="confirmOrderItems"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-secondary" onclick="window.print()">
+            🖨️ Print Invoice
+          </button>
+          <a href="profile.html" class="btn-primary">
+            View My Orders
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

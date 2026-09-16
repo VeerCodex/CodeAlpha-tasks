@@ -1,0 +1,86 @@
+/* ==========================================================================
+   CodeAlpha E-Commerce Store — Responsive Layout Styles
+   Author: Veernarayan | CodeAlpha Full Stack Internship Task 1
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .hero-pill-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-stats-row {
+    justify-content: center;
+  }
+  .hero-visual {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .perks-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .nav-search {
+    display: none; /* Can be toggled or accessed via modal on small screens */
+  }
+  .perks-strip {
+    grid-template-columns: 1fr;
+  }
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+  .modal-main-img {
+    height: 250px;
+  }
+  .cart-drawer {
+    max-width: 100%;
+  }
+  .toolbar-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sort-group {
+    justify-content: space-between;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .hero-stats-row {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}

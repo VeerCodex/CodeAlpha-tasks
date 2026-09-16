@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details — AlphaStore | CodeAlpha Task 1</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .product-page-wrap {
+      padding: 3rem 0 5rem;
+    }
+    .product-main-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      backdrop-filter: var(--blur-glass);
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+        </div>
+        <div class="brand-name">Alpha<span>Store</span><span class="brand-badge">PRODUCT</span></div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html#catalog" class="nav-link">Catalog</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <button class="cart-trigger-btn" id="openCartDrawerBtn" title="Shopping Cart">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span class="cart-badge" style="display: none;">0</span>
+        </button>
+        <div id="navAuthContainer"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Details Standalone -->
+  <main class="container product-page-wrap">
+    <div style="margin-bottom: 1.5rem;">
+      <a href="index.html#catalog" class="btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">
+        ← Back to Products Catalog
+      </a>
+    </div>
+
+    <div class="product-main-card" id="standaloneProductBox">
+      <div style="text-align: center; padding: 4rem; color: var(--text-muted);">
+        <div class="skeleton" style="width: 80px; height: 80px; margin: 0 auto 1rem; border-radius: 50%;"></div>
+        <p>Loading product information...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Slide-Out Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Shopping Cart</div>
+      <button class="drawer-close-btn" id="cartDrawerClose">✕</button>
+    </div>
+    <div class="drawer-items-list" id="cartDrawerItems"></div>
+    <div class="drawer-footer">
+      <div id="drawerCouponBox"></div>
+      <div class="summary-line"><span>Subtotal</span><span id="drawerSubtotal">$0.00</span></div>
+      <div class="summary-line"><span>Discount</span><span id="drawerDiscount" style="color: var(--accent-success);">$0.00</span></div>
+      <div class="summary-line"><span>Shipping</span><span id="drawerShipping">$0.00</span></div>
+      <div class="summary-line total"><span>Total</span><span id="drawerTotal">$0.00</span></div>
+      <a href="cart.html" class="btn-primary checkout-btn-block">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let currentProd = null;
+    let qty = 1;
+    let selectedRating = 5;
+
+    async function loadStandaloneProduct() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodId = urlParams.get('id') || 'prod-1';
+
+      try {
+        const res = await api.getProductById(prodId);
+        if (res.success && res.product) {
+          currentProd = res.product;
+          renderProduct(res.product);
+        } else {
+          document.getElementById('standaloneProductBox').innerHTML = `<p style="color:var(--accent-danger)">Product not found.</p>`;
+        }
+      } catch (err) {
+        document.getElementById('standaloneProductBox').innerHTML = `<p style="color:var(--accent-danger)">Failed to load product.</p>`;
+      }
+    }
+
+    function renderProduct(prod) {
+      const box = document.getElementById('standaloneProductBox');
+      const images = prod.images && prod.images.length ? prod.images : [prod.image];
+      const specs = prod.specs ? Object.entries(prod.specs).map(([k, v]) => `
+        <div class="specs-row">
+          <span class="specs-key">${k}</span>
+          <span class="specs-val">${v}</span>
+        </div>
+      `).join('') : '';
+
+      const reviews = prod.reviews && prod.reviews.length ? prod.reviews.map(r => `
+        <div class="review-item-card">
+          <div class="review-header">
+            <span class="review-user-name">${r.user}</span>
+            <span class="review-date">${r.date} • <strong style="color:#fbbf24;">★ ${r.rating}</strong></span>
+          </div>
+          <p class="review-body-text">${r.comment}</p>
+        </div>
+      `).join('') : `<p style="color: var(--text-muted); font-size: 0.85rem;">No customer reviews yet.</p>`;
+
+      box.innerHTML = `
+        <div class="modal-content-grid" style="padding: 0;">
+          <div class="modal-gallery-wrap">
+            <img id="mainProductImg" src="${images[0]}" alt="${prod.name}" class="modal-main-img" style="height: 400px;">
+            <div class="modal-thumbs-row">
+              ${images.map((img, idx) => `
+                <img src="${img}" alt="thumb" class="modal-thumb-mini ${idx === 0 ? 'active' : ''}" onclick="switchImg('${img}', this)">
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="modal-details-wrap">
+            <span class="product-category-label">${prod.category}</span>
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">${prod.name}</h1>
+
+            <div class="product-rating" style="margin-bottom: 1.25rem;">
+              <span class="stars-solid">★★★★★</span>
+              <span class="rating-num">${prod.rating.toFixed(1)}</span>
+              <span class="review-count">(${prod.reviewCount} customer reviews)</span>
+            </div>
+
+            <div class="price-block" style="margin-bottom: 1.5rem;">
+              <span class="current-price" style="font-size: 2.2rem; color: var(--text-highlight);">$${prod.price.toFixed(2)}</span>
+              ${prod.originalPrice ? `<span class="original-price" style="font-size: 1.1rem;">MSRP: $${prod.originalPrice.toFixed(2)}</span>` : ''}
+            </div>
+
+            <div class="modal-stock-indicator">
+              <span class="pulse-dot"></span>
+              ${prod.stock > 0 ? `In Stock (${prod.stock} items ready to ship)` : `Out of Stock`}
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin: 1.5rem 0;">
+              ${prod.description}
+            </p>
+
+            ${specs ? `<div class="modal-specs-table">${specs}</div>` : ''}
+
+            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 2rem;">
+              <div class="qty-stepper" style="padding: 0.2rem;">
+                <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                <span id="qtyVal" class="qty-value">1</span>
+                <button class="qty-btn" onclick="updateQty(1)">+</button>
+              </div>
+              <button class="btn-primary" style="flex: 1;" onclick="addToCartNow()">
+                Add to Shopping Bag
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews-container" style="padding: 2.5rem 0 0; margin-top: 3rem;">
+          <h3 class="reviews-title">Customer Feedback & Reviews</h3>
+          <div class="reviews-list">${reviews}</div>
+
+          <div class="review-form-wrap">
+            <h4>Write a Product Review</h4>
+            <div class="form-rating-select" id="starPicker">
+              <span data-val="1">★</span>
+              <span data-val="2">★</span>
+              <span data-val="3">★</span>
+              <span data-val="4">★</span>
+              <span data-val="5" style="color:#fbbf24;">★</span>
+            </div>
+            <textarea id="reviewComment" class="review-textarea" placeholder="Describe your experience with this item..."></textarea>
+            <button class="btn-secondary" onclick="postReview('${prod.id}')">Submit Feedback</button>
+          </div>
+        </div>
+      `;
+
+      initStars();
+    }
+
+    function switchImg(src, el) {
+      document.getElementById('mainProductImg').src = src;
+      document.querySelectorAll('.modal-thumb-mini').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function updateQty(delta) {
+      qty = Math.max(1, qty + delta);
+      document.getElementById('qtyVal').textContent = qty;
+    }
+
+    function addToCartNow() {
+      if (currentProd) {
+        cart.addItem(currentProd, qty);
+        cart.openDrawer();
+      }
+    }
+
+    function initStars() {
+      const picker = document.getElementById('starPicker');
+      if (!picker) return;
+      const stars = picker.querySelectorAll('span');
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          selectedRating = parseInt(star.getAttribute('data-val'));
+          stars.forEach(s => {
+            const val = parseInt(s.getAttribute('data-val'));
+            s.style.color = val <= selectedRating ? '#fbbf24' : 'var(--text-muted)';
+          });
+        });
+      });
+    }
+
+    async function postReview(id) {
+      const text = document.getElementById('reviewComment').value.trim();
+      if (!text) {
+        window.showToast('Please enter your review text', 'error');
+        return;
+      }
+      try {
+        const res = await api.submitReview(id, { rating: selectedRating, comment: text });
+        if (res.success) {
+          window.showToast('Review posted!', 'success');
+          loadStandaloneProduct();
+        }
+      } catch (err) {
+        window.showToast('Failed to post review', 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadStandaloneProduct);
+  </script>
+</body>
+</html>

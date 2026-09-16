@@ -1,0 +1,212 @@
+{
+  "users": [
+    {
+      "id": "usr-demo",
+      "name": "Veernarayan",
+      "handle": "veernarayan",
+      "email": "demo@codealpha.com",
+      "bio": "Full Stack Developer 💻 Building scalable web architectures at CodeAlpha Internship 🚀 Passionate about clean code and UI/UX.",
+      "location": "Bengaluru, India",
+      "website": "https://codealpha.tech",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+      "banner": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+      "followers": [
+        "usr-2",
+        "usr-3",
+        "usr-4"
+      ],
+      "following": [
+        "usr-2"
+      ],
+      "joinedDate": "September 2026",
+      "passwordHash": "$2a$10$Vi6EnQXmvy10K7EeEczaIuqkg9C1.S.Q09/f9Ma4JKATBg/HqIjhe"
+    },
+    {
+      "id": "usr-2",
+      "name": "Aarav Sharma",
+      "handle": "aarav_dev",
+      "email": "aarav@codealpha.com",
+      "bio": "Frontend Engineer & Design System Crafter 🎨 Exploring micro-animations and typography.",
+      "location": "Mumbai, India",
+      "website": "https://github.com/aarav",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      "banner": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=80",
+      "followers": [
+        "usr-demo",
+        "usr-3"
+      ],
+      "following": [
+        "usr-demo"
+      ],
+      "joinedDate": "August 2026",
+      "passwordHash": "$2a$10$Vi6EnQXmvy10K7EeEczaIuqkg9C1.S.Q09/f9Ma4JKATBg/HqIjhe"
+    },
+    {
+      "id": "usr-3",
+      "name": "Sneha Patel",
+      "handle": "sneha_codes",
+      "email": "sneha@codealpha.com",
+      "bio": "Cloud & DevOps Architect ☁️ Docker, Node.js & Kubernetes enthusiast. Building in public.",
+      "location": "Pune, India",
+      "website": "https://sneha.dev",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80",
+      "banner": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "followers": [
+        "usr-demo"
+      ],
+      "following": [
+        "usr-demo",
+        "usr-2"
+      ],
+      "joinedDate": "July 2026",
+      "passwordHash": "$2a$10$Vi6EnQXmvy10K7EeEczaIuqkg9C1.S.Q09/f9Ma4JKATBg/HqIjhe"
+    },
+    {
+      "id": "usr-4",
+      "name": "Rohan Verma",
+      "handle": "rohan_ai",
+      "email": "rohan@codealpha.com",
+      "bio": "AI/ML Enthusiast 🧠 Exploring transformer architectures and generative applications.",
+      "location": "Delhi, India",
+      "website": "https://rohan.ai",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+      "banner": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "followers": [],
+      "following": [
+        "usr-demo"
+      ],
+      "joinedDate": "June 2026",
+      "passwordHash": "$2a$10$Vi6EnQXmvy10K7EeEczaIuqkg9C1.S.Q09/f9Ma4JKATBg/HqIjhe"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-1789592745881",
+      "authorId": "usr-demo",
+      "content": "Testing Task 2 API from automated test suite! #CodeAlpha #Internship",
+      "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80",
+      "tags": [
+        "CodeAlpha",
+        "Internship"
+      ],
+      "createdAt": "2026-09-16T21:05:45.881Z",
+      "likes": [],
+      "comments": []
+    },
+    {
+      "id": "post-1",
+      "authorId": "usr-demo",
+      "content": "Thrilled to share that I have officially kicked off my Full Stack Development Internship at @CodeAlpha! 🚀 Currently engineering interactive web apps with Node.js, Express, and modern frontend design systems. Hard work pays off! #CodeAlpha #FullStack #WebDev #BuildInPublic",
+      "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80",
+      "tags": [
+        "CodeAlpha",
+        "FullStack",
+        "WebDev",
+        "BuildInPublic"
+      ],
+      "createdAt": "2026-09-16T19:02:30.055Z",
+      "likes": [
+        "usr-2",
+        "usr-3",
+        "usr-4",
+        "usr-demo"
+      ],
+      "comments": [
+        {
+          "id": "comm-1",
+          "authorId": "usr-2",
+          "authorName": "Aarav Sharma",
+          "authorHandle": "aarav_dev",
+          "authorAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+          "content": "Huge congratulations Veernarayan! The UI looks incredibly slick!",
+          "createdAt": "2026-09-16T20:02:30.069Z"
+        },
+        {
+          "id": "comm-2",
+          "authorId": "usr-3",
+          "authorName": "Sneha Patel",
+          "authorHandle": "sneha_codes",
+          "authorAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80",
+          "content": "Keep building awesome stuff! Excited to see the final presentation 👏",
+          "createdAt": "2026-09-16T20:32:30.069Z"
+        },
+        {
+          "id": "comm-1789592745907",
+          "authorId": "usr-demo",
+          "authorName": "Veernarayan",
+          "authorHandle": "veernarayan",
+          "authorAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+          "content": "Awesome work on this full stack architecture!",
+          "createdAt": "2026-09-16T21:05:45.907Z"
+        }
+      ]
+    },
+    {
+      "id": "post-2",
+      "authorId": "usr-2",
+      "content": "Late night desk setup upgrade ⚡ Switched to a 75% tactile mechanical keyboard and screen lightbar. Coding ergonomics make a massive difference for long programming marathons. What does your current setup look like? #DeskSetup #Developer #TechLife",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80",
+      "tags": [
+        "DeskSetup",
+        "Developer",
+        "TechLife"
+      ],
+      "createdAt": "2026-09-16T13:02:30.069Z",
+      "likes": [
+        "usr-demo",
+        "usr-3"
+      ],
+      "comments": [
+        {
+          "id": "comm-3",
+          "authorId": "usr-demo",
+          "authorName": "Veernarayan",
+          "authorHandle": "veernarayan",
+          "authorAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+          "content": "That keyboard looks clean! Which switches are you using?",
+          "createdAt": "2026-09-16T15:02:30.069Z"
+        }
+      ]
+    },
+    {
+      "id": "post-3",
+      "authorId": "usr-3",
+      "content": "Just deployed a distributed microservice cluster using Docker and Node.js. Zero downtime deployments and sub-50ms latency response times! ☁️ Always test your failovers before going live. #CloudEngineering #DevOps #NodeJS",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80",
+      "tags": [
+        "CloudEngineering",
+        "DevOps",
+        "NodeJS"
+      ],
+      "createdAt": "2026-09-15T21:02:30.069Z",
+      "likes": [
+        "usr-demo",
+        "usr-2",
+        "usr-4"
+      ],
+      "comments": []
+    }
+  ],
+  "hashtags": [
+    {
+      "tag": "CodeAlpha",
+      "count": 184
+    },
+    {
+      "tag": "FullStack",
+      "count": 129
+    },
+    {
+      "tag": "WebDev",
+      "count": 96
+    },
+    {
+      "tag": "BuildInPublic",
+      "count": 83
+    },
+    {
+      "tag": "JavaScript",
+      "count": 72
+    }
+  ]
+}

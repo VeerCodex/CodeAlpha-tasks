@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseAlpha — Modern Social Media Platform | CodeAlpha Task 2</title>
+  <meta name="description" content="CodeAlpha Full Stack Internship Task 2: Social Media Platform featuring user profiles, interactive posts feed, likes, comments, and follower system.">
+  <meta name="author" content="Veernarayan">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="layout-container">
+
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar-left">
+      <div>
+        <a href="index.html" class="brand-logo-social">
+          <div class="brand-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div class="brand-name-text">Pulse<span>Alpha</span><span class="brand-tag-task">TASK 2</span></div>
+        </a>
+
+        <nav class="nav-links-menu">
+          <a href="index.html" class="nav-menu-item active">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span>Home Feed</span>
+          </a>
+
+          <a href="javascript:void(0)" onclick="app.loadFeed('trending')" class="nav-menu-item">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path>
+            </svg>
+            <span>Trending</span>
+          </a>
+
+          <a href="profile.html" class="nav-menu-item">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            <span>My Profile</span>
+          </a>
+
+          <a href="auth.html" class="nav-menu-item">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+            </svg>
+            <span>Switch Account</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Current User Mini Card -->
+      <div class="user-mini-card" id="userMiniCard">
+        <!-- Injected via auth.js -->
+      </div>
+    </aside>
+
+    <!-- CENTER FEED COLUMN -->
+    <main class="main-feed-column">
+
+      <!-- Feed Filter Tabs -->
+      <div class="feed-tabs-bar">
+        <button class="feed-tab-btn active" data-filter="all">For You (All)</button>
+        <button class="feed-tab-btn" data-filter="following">Following</button>
+        <button class="feed-tab-btn" data-filter="trending">🔥 Trending</button>
+      </div>
+
+      <!-- Post Composer Widget -->
+      <section class="composer-card">
+        <div class="composer-top-row">
+          <img id="composerAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="User avatar" class="composer-avatar">
+          <div class="composer-input-area">
+            <textarea id="composerTextarea" class="composer-textarea" placeholder="Share what you are building or learning today... #CodeAlpha #FullStack"></textarea>
+          </div>
+        </div>
+
+        <!-- Preset Image Picker Chips -->
+        <div class="composer-presets-row">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Quick Photo:</span>
+          <button type="button" class="preset-chip" data-url="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80">💻 Coding Setup</button>
+          <button type="button" class="preset-chip" data-url="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80">⌨️ Mechanical Desk</button>
+          <button type="button" class="preset-chip" data-url="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80">☁️ Cloud Server</button>
+          <button type="button" class="preset-chip" data-url="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80">⚡ Matrix Tech</button>
+        </div>
+
+        <!-- Attachment Preview Box -->
+        <div class="composer-img-preview-box" id="composerImgPreviewBox">
+          <img id="composerImgPreview" src="" alt="Preview" class="composer-img-preview">
+          <button type="button" class="composer-remove-img-btn" id="btnRemoveAttachment" title="Remove Photo">✕</button>
+        </div>
+
+        <!-- Composer Bottom Toolbar -->
+        <div class="composer-bottom-bar">
+          <div class="composer-tool-icons">
+            <button type="button" class="tool-icon-btn" title="Add Image URL" onclick="const u=prompt('Enter Image URL:'); if(u) app.setAttachment(u);">
+              📷
+            </button>
+            <button type="button" class="tool-icon-btn" title="Add Hashtag" onclick="app.filterByTag('CodeAlpha')">
+              #️⃣
+            </button>
+          </div>
+          <button type="button" class="btn-publish" id="btnPublishPost">
+            Publish Post
+          </button>
+        </div>
+      </section>
+
+      <!-- Posts Stream Container -->
+      <section id="postsStream">
+        <!-- Dynamically injected post cards -->
+      </section>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar-right">
+
+      <!-- Who to Follow Widget -->
+      <div class="widget-card">
+        <h3 class="widget-title">
+          <span>👥</span> Suggested Creators
+        </h3>
+        <div id="whoToFollowList">
+          <!-- Injected suggestions -->
+        </div>
+      </div>
+
+      <!-- Trending Hashtags Widget -->
+      <div class="widget-card">
+        <h3 class="widget-title">
+          <span>📈</span> Trending in Tech
+        </h3>
+        <div id="trendingTagsList">
+          <!-- Injected trending tags -->
+        </div>
+      </div>
+
+      <!-- Internship Attribution Card -->
+      <div class="widget-card" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;">
+        <strong style="color: var(--text-main);">PulseAlpha • Task 2</strong><br>
+        Built for CodeAlpha Full Stack Development Internship.<br>
+        Developed with Node.js, Express & Vanilla CSS by <strong>Veernarayan</strong>.
+      </div>
+
+    </aside>
+
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

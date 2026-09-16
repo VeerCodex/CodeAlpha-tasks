@@ -1,0 +1,70 @@
+/* ==========================================================================
+   CodeAlpha Social Media Platform (PulseAlpha) — Responsive Media Queries
+   Author: Veernarayan | CodeAlpha Full Stack Internship Task 2
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .layout-container {
+    grid-template-columns: 80px 1fr 300px;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+  .brand-logo-social .brand-name-text,
+  .brand-tag-task,
+  .nav-menu-item span,
+  .user-mini-details {
+    display: none;
+  }
+  .nav-menu-item {
+    justify-content: center;
+    padding: 0.85rem;
+  }
+  .user-mini-card {
+    justify-content: center;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .layout-container {
+    grid-template-columns: 1fr;
+  }
+  .sidebar-right {
+    display: none; /* Can be viewed in a separate tab or drawer on mobile */
+  }
+  .sidebar-left {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--bg-card-solid);
+    border-top: 1px solid var(--border-subtle);
+    z-index: 100;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .brand-logo-social, .user-mini-card {
+    display: none;
+  }
+  .nav-links-menu {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .main-feed-column {
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile-avatar-huge {
+    width: 5rem;
+    height: 5rem;
+  }
+  .profile-stats-bar {
+    gap: 1rem;
+  }
+}
