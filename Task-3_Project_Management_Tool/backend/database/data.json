@@ -1,0 +1,269 @@
+{
+  "users": [
+    {
+      "id": "usr-1",
+      "name": "Veernarayan",
+      "email": "demo@codealpha.com",
+      "role": "Lead Full Stack Architect",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$zqYL9MuInXZRnurSIq5VjOx81ltb19pdFP21NN/0o4V429srd.h1G"
+    },
+    {
+      "id": "usr-2",
+      "name": "Aarav Sharma",
+      "email": "aarav@codealpha.com",
+      "role": "Frontend Engineer",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$zqYL9MuInXZRnurSIq5VjOx81ltb19pdFP21NN/0o4V429srd.h1G"
+    },
+    {
+      "id": "usr-3",
+      "name": "Sneha Patel",
+      "email": "sneha@codealpha.com",
+      "role": "DevOps & Cloud Specialist",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$zqYL9MuInXZRnurSIq5VjOx81ltb19pdFP21NN/0o4V429srd.h1G"
+    },
+    {
+      "id": "usr-4",
+      "name": "Rohan Verma",
+      "email": "rohan@codealpha.com",
+      "role": "QA & Security Engineer",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$zqYL9MuInXZRnurSIq5VjOx81ltb19pdFP21NN/0o4V429srd.h1G"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "AlphaStore E-Commerce Suite",
+      "key": "ALPH",
+      "description": "Production-ready full-stack online storefront with modern checkout and responsive UI.",
+      "color": "#6366f1",
+      "members": [
+        "usr-1",
+        "usr-2",
+        "usr-3",
+        "usr-4"
+      ]
+    },
+    {
+      "id": "proj-2",
+      "name": "PulseAlpha Social Network",
+      "key": "PULS",
+      "description": "Next-gen developer social community with interactive feeds, animated likes, and follower system.",
+      "color": "#ec4899",
+      "members": [
+        "usr-1",
+        "usr-2",
+        "usr-3"
+      ]
+    },
+    {
+      "id": "proj-3",
+      "name": "Cloud Infrastructure CI/CD",
+      "key": "CLOU",
+      "description": "Automated deployment pipelines and microservices clustering with zero-downtime rollouts.",
+      "color": "#06b6d4",
+      "members": [
+        "usr-1",
+        "usr-3"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "tsk-101",
+      "projectId": "proj-1",
+      "title": "Design Cyber-Luxury Glassmorphism UI",
+      "description": "Create sleek dark mode styling, curated HSL color palette, and micro-animations for cards.",
+      "column": "done",
+      "priority": "HIGH",
+      "dueDate": "2026-09-18",
+      "assigneeId": "usr-2",
+      "subtasks": [
+        {
+          "id": "st-1",
+          "text": "Import Google Fonts (Outfit & Plus Jakarta Sans)",
+          "done": true
+        },
+        {
+          "id": "st-2",
+          "text": "Design responsive product cards with hover glow",
+          "done": true
+        },
+        {
+          "id": "st-3",
+          "text": "Test mobile viewport layout",
+          "done": true
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm-1",
+          "userId": "usr-1",
+          "userName": "Veernarayan",
+          "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+          "content": "The card contrast and border glows look stellar on 4K displays!",
+          "date": "2026-09-17 10:30"
+        }
+      ]
+    },
+    {
+      "id": "tsk-102",
+      "projectId": "proj-1",
+      "title": "Implement JWT Session & Bcrypt Authentication",
+      "description": "Build robust authentication routes for user registration, token generation, and profile retrieval.",
+      "column": "done",
+      "priority": "HIGH",
+      "dueDate": "2026-09-20",
+      "assigneeId": "usr-1",
+      "subtasks": [
+        {
+          "id": "st-4",
+          "text": "Bcrypt password salting & verification",
+          "done": true
+        },
+        {
+          "id": "st-5",
+          "text": "Authorization Bearer token header middleware",
+          "done": true
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "tsk-103",
+      "projectId": "proj-1",
+      "title": "Interactive Cart Drawer & Promo Coupon System",
+      "description": "Support instant quantity increments, discount codes (CODEALPHA10, ALPHA20), and subtotal computation.",
+      "column": "review",
+      "priority": "MEDIUM",
+      "dueDate": "2026-09-24",
+      "assigneeId": "usr-1",
+      "subtasks": [
+        {
+          "id": "st-6",
+          "text": "Cart drawer slide-out animation",
+          "done": true
+        },
+        {
+          "id": "st-7",
+          "text": "Coupon code validation endpoint",
+          "done": true
+        },
+        {
+          "id": "st-8",
+          "text": "Cross-check shipping fees threshold ($150)",
+          "done": false
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm-2",
+          "userId": "usr-3",
+          "userName": "Sneha Patel",
+          "userAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
+          "content": "Tested coupon validation with $120 cart. 10% discount works seamlessly.",
+          "date": "2026-09-21 14:15"
+        }
+      ]
+    },
+    {
+      "id": "tsk-104",
+      "projectId": "proj-1",
+      "title": "Automated Test Suite & API Benchmark",
+      "description": "Write end-to-end integration tests verifying health, orders, and review submission endpoints.",
+      "column": "inprogress",
+      "priority": "HIGH",
+      "dueDate": "2026-09-26",
+      "assigneeId": "usr-3",
+      "subtasks": [
+        {
+          "id": "st-9",
+          "text": "Test GET /api/products response times",
+          "done": true
+        },
+        {
+          "id": "st-10",
+          "text": "Verify database persistence after restart",
+          "done": false
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "tsk-105",
+      "projectId": "proj-1",
+      "title": "Security Penetration & Payload Sanitization",
+      "description": "Verify XSS protection, input validation schemas, and rate-limiting triggers.",
+      "column": "todo",
+      "priority": "LOW",
+      "dueDate": "2026-09-28",
+      "assigneeId": "usr-4",
+      "subtasks": [
+        {
+          "id": "st-11",
+          "text": "Validate SQL/JSON injection edge cases",
+          "done": false
+        },
+        {
+          "id": "st-12",
+          "text": "Review CORS configuration",
+          "done": false
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "tsk-201",
+      "projectId": "proj-2",
+      "title": "Build Real-Time Heart Like & Comment System",
+      "description": "Enable instant interactive engagement with optimistic UI updates and heart pop keyframe animations.",
+      "column": "done",
+      "priority": "HIGH",
+      "dueDate": "2026-09-19",
+      "assigneeId": "usr-1",
+      "subtasks": [
+        {
+          "id": "st-13",
+          "text": "Heart pop animation",
+          "done": true
+        },
+        {
+          "id": "st-14",
+          "text": "Instant comment submission",
+          "done": true
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "tsk-237",
+      "projectId": "proj-1",
+      "title": "Automated Integration Testing & Verification",
+      "description": "End-to-end system testing on port 5002",
+      "column": "done",
+      "priority": "HIGH",
+      "dueDate": "2026-09-30",
+      "assigneeId": "usr-1",
+      "subtasks": [
+        {
+          "id": "st-test",
+          "text": "Verify database persistence",
+          "done": true
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm-1790016537866",
+          "userId": "usr-1",
+          "userName": "Veernarayan",
+          "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+          "content": "Task moved to done via automated pipeline!",
+          "date": "2026-09-21 18:48"
+        }
+      ]
+    }
+  ]
+}

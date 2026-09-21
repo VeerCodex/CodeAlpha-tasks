@@ -81,6 +81,19 @@
   ],
   "posts": [
     {
+      "id": "post-1789592961024",
+      "authorId": "usr-demo",
+      "content": "#CodeAlpha #CodeAlpha",
+      "image": null,
+      "tags": [
+        "CodeAlpha",
+        "CodeAlpha"
+      ],
+      "createdAt": "2026-09-16T21:09:21.025Z",
+      "likes": [],
+      "comments": []
+    },
+    {
       "id": "post-1789592745881",
       "authorId": "usr-demo",
       "content": "Testing Task 2 API from automated test suite! #CodeAlpha #Internship",

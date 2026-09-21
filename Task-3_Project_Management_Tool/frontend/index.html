@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskAlpha — Project Management & Kanban Board | CodeAlpha Task 3</title>
+  <meta name="description" content="CodeAlpha Full Stack Internship Task 3: Collaborative Project Management Tool featuring Kanban boards, drag-and-drop tasks, team assignments, subtasks, and comments.">
+  <meta name="author" content="Veernarayan">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kanban.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo-kanban">
+        <div class="brand-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path>
+          </svg>
+        </div>
+        <span>TaskAlpha</span>
+        <span class="brand-tag-task3">TASK 3</span>
+      </a>
+
+      <!-- Project Switcher Dropdown -->
+      <div class="project-selector-wrap">
+        <div class="project-dot-color"></div>
+        <select class="project-select" id="projectSelector">
+          <!-- Injected via JS -->
+        </select>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <!-- Team Members Avatars Stack -->
+      <div class="members-avatar-stack" id="membersAvatarStack" title="Project Team Members">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Quick Add Task Button -->
+      <button class="btn-new-task-nav" id="btnOpenNewTaskModal">
+        <span>+</span> New Task
+      </button>
+
+      <!-- User Profile / Session -->
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <!-- BOARD HEADER STRIP -->
+  <section class="board-header-strip">
+    <div class="board-title-meta">
+      <h1 id="boardProjectTitle">AlphaStore E-Commerce Suite</h1>
+      <p id="boardProjectDesc">Production-ready full-stack online storefront with modern checkout and responsive UI.</p>
+    </div>
+
+    <div class="board-progress-bar-wrap">
+      <span style="font-size: 0.8rem; color: var(--text-muted);">Overall Progress:</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="boardProgressFill" style="width: 50%;"></div>
+      </div>
+      <span class="progress-label" id="boardProgressLabel">50% Done</span>
+    </div>
+  </section>
+
+  <!-- MAIN KANBAN BOARD -->
+  <main class="kanban-board-container">
+
+    <!-- Column 1: To Do -->
+    <div class="kanban-column" data-column="todo">
+      <div class="column-header">
+        <div class="column-title-group">
+          <span class="col-dot todo"></span>
+          <span class="column-title">To Do</span>
+          <span class="column-count-badge" id="count-todo">0</span>
+        </div>
+        <button class="btn-add-column-task" onclick="kanban.openNewTaskModal('todo')" title="Add Task to To Do">+</button>
+      </div>
+      <div class="tasks-dropzone" id="dropzone-todo">
+        <!-- Injected cards -->
+      </div>
+    </div>
+
+    <!-- Column 2: In Progress -->
+    <div class="kanban-column" data-column="inprogress">
+      <div class="column-header">
+        <div class="column-title-group">
+          <span class="col-dot inprogress"></span>
+          <span class="column-title">In Progress</span>
+          <span class="column-count-badge" id="count-inprogress">0</span>
+        </div>
+        <button class="btn-add-column-task" onclick="kanban.openNewTaskModal('inprogress')" title="Add Task to In Progress">+</button>
+      </div>
+      <div class="tasks-dropzone" id="dropzone-inprogress">
+        <!-- Injected cards -->
+      </div>
+    </div>
+
+    <!-- Column 3: Under Review -->
+    <div class="kanban-column" data-column="review">
+      <div class="column-header">
+        <div class="column-title-group">
+          <span class="col-dot review"></span>
+          <span class="column-title">Under Review</span>
+          <span class="column-count-badge" id="count-review">0</span>
+        </div>
+        <button class="btn-add-column-task" onclick="kanban.openNewTaskModal('review')" title="Add Task to Review">+</button>
+      </div>
+      <div class="tasks-dropzone" id="dropzone-review">
+        <!-- Injected cards -->
+      </div>
+    </div>
+
+    <!-- Column 4: Completed -->
+    <div class="kanban-column" data-column="done">
+      <div class="column-header">
+        <div class="column-title-group">
+          <span class="col-dot done"></span>
+          <span class="column-title">Completed</span>
+          <span class="column-count-badge" id="count-done">0</span>
+        </div>
+        <button class="btn-add-column-task" onclick="kanban.openNewTaskModal('done')" title="Add Task to Completed">+</button>
+      </div>
+      <div class="tasks-dropzone" id="dropzone-done">
+        <!-- Injected cards -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: TASK DETAILS & COMMENTS -->
+  <div class="modal-overlay" id="taskDetailsModal">
+    <div class="modal-dialog-box">
+      <button class="modal-close-icon" title="Close">✕</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <span style="font-size: 0.85rem; color: var(--accent-secondary); font-weight: 700; font-family: monospace;" id="modalTaskIdLabel">TSK-100</span>
+        <span style="color: var(--text-muted); font-size: 0.85rem;">• Task Details & Collaboration</span>
+      </div>
+
+      <div class="modal-field">
+        <label>Task Title</label>
+        <input type="text" id="modalTaskTitleInput" class="modal-input" style="font-size: 1.15rem; font-weight: 700;">
+      </div>
+
+      <div class="modal-field">
+        <label>Description & Scope</label>
+        <textarea id="modalTaskDescInput" class="modal-input" style="min-height: 80px; resize: vertical;"></textarea>
+      </div>
+
+      <div class="modal-grid-2">
+        <div class="modal-field">
+          <label>Workflow Status</label>
+          <select id="modalTaskColumnSelect" class="modal-input">
+            <option value="todo">To Do</option>
+            <option value="inprogress">In Progress</option>
+            <option value="review">Under Review</option>
+            <option value="done">Completed</option>
+          </select>
+        </div>
+
+        <div class="modal-field">
+          <label>Priority Level</label>
+          <select id="modalTaskPrioritySelect" class="modal-input">
+            <option value="HIGH">🔴 High / Urgent</option>
+            <option value="MEDIUM">🟡 Medium</option>
+            <option value="LOW">🟢 Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-grid-2">
+        <div class="modal-field">
+          <label>Assigned Member</label>
+          <select id="modalTaskAssigneeSelect" class="modal-input user-select-populate">
+            <!-- Injected users -->
+          </select>
+        </div>
+
+        <div class="modal-field">
+          <label>Due Date</label>
+          <input type="date" id="modalTaskDueInput" class="modal-input">
+        </div>
+      </div>
+
+      <!-- Subtasks Checklist Section -->
+      <div class="subtasks-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <strong style="font-size: 0.85rem; text-transform: uppercase;">Checklist Subtasks</strong>
+          <span style="font-size: 0.78rem; color: var(--accent-emerald);" id="modalSubtasksCountLabel">0 of 0 completed</span>
+        </div>
+
+        <div class="subtasks-progress-wrap">
+          <div class="progress-track" style="width: 100%;">
+            <div class="progress-fill" id="modalSubtasksProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="subtasks-list" id="modalSubtasksList"></div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.85rem;">
+          <input type="text" id="newSubtaskInput" class="modal-input" placeholder="Add an actionable subtask..." style="padding: 0.45rem 0.75rem; font-size: 0.85rem;">
+          <button type="button" class="btn-new-task-nav" style="padding: 0.45rem 0.85rem;" onclick="kanban.handleAddSubtask()">Add</button>
+        </div>
+      </div>
+
+      <!-- Task Comments Discussion -->
+      <div class="comments-thread-wrap">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.85rem;">💬 Team Discussion & Activity</h4>
+        <div id="modalCommentsList"></div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.85rem;">
+          <input type="text" id="newCommentInput" class="modal-input" placeholder="Write a comment or update for the team..." style="padding: 0.55rem 0.85rem;" onkeydown="if(event.key==='Enter') kanban.handleAddComment()">
+          <button type="button" class="btn-new-task-nav" style="padding: 0.55rem 1rem;" onclick="kanban.handleAddComment()">Send</button>
+        </div>
+      </div>
+
+      <!-- Bottom Actions -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+        <button type="button" style="background: transparent; border: 1px solid rgba(244, 63, 94, 0.4); color: var(--accent-rose); padding: 0.55rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.85rem;" onclick="kanban.handleDeleteCurrentTask()">
+          🗑️ Delete Task
+        </button>
+        <button type="button" class="btn-new-task-nav" onclick="kanban.handleSaveTaskChanges()">
+          Save Changes
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: CREATE NEW TASK -->
+  <div class="modal-overlay" id="newTaskModal">
+    <div class="modal-dialog-box" style="max-width: 520px;">
+      <button class="modal-close-icon" title="Close">✕</button>
+      <h2 style="font-size: 1.3rem; margin-bottom: 1.25rem;">Create New Task Card</h2>
+
+      <form onsubmit="kanban.handleCreateTaskSubmit(event)">
+        <div class="modal-field">
+          <label>Task Title *</label>
+          <input type="text" id="createTaskTitleInput" class="modal-input" placeholder="e.g. Integrate Payment Webhooks" required>
+        </div>
+
+        <div class="modal-field">
+          <label>Description</label>
+          <textarea id="createTaskDescInput" class="modal-input" placeholder="Detailed requirements and context..."></textarea>
+        </div>
+
+        <div class="modal-grid-2">
+          <div class="modal-field">
+            <label>Column</label>
+            <select id="createTaskColumnSelect" class="modal-input">
+              <option value="todo">To Do</option>
+              <option value="inprogress">In Progress</option>
+              <option value="review">Under Review</option>
+              <option value="done">Completed</option>
+            </select>
+          </div>
+
+          <div class="modal-field">
+            <label>Priority</label>
+            <select id="createTaskPrioritySelect" class="modal-input">
+              <option value="HIGH">🔴 High</option>
+              <option value="MEDIUM" selected>🟡 Medium</option>
+              <option value="LOW">🟢 Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-grid-2">
+          <div class="modal-field">
+            <label>Assign To</label>
+            <select id="createTaskAssigneeSelect" class="modal-input user-select-populate">
+              <!-- Users -->
+            </select>
+          </div>
+
+          <div class="modal-field">
+            <label>Due Date</label>
+            <input type="date" id="createTaskDueInput" class="modal-input">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="submit" class="btn-new-task-nav" style="padding: 0.65rem 1.4rem;">
+            Add to Board
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/kanban.js"></script>
+</body>
+</html>

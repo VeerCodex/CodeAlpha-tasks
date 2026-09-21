@@ -1,0 +1,31 @@
+/* ==========================================================================
+   CodeAlpha Project Management Tool (TaskAlpha) — Responsive Media Queries
+   Author: Veernarayan | CodeAlpha Full Stack Internship Task 3
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .top-nav {
+    padding: 0 1rem;
+  }
+  .members-avatar-stack {
+    display: none;
+  }
+  .board-header-strip {
+    padding: 1rem;
+  }
+  .kanban-board-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .nav-left {
+    gap: 0.75rem;
+  }
+  .brand-tag-task3 {
+    display: none;
+  }
+}
