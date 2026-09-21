@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In / Register — CollabAlpha | CodeAlpha Task 4</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    body {
+      overflow: auto !important;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.12) 0%, rgba(8, 12, 20, 1) 75%);
+    }
+
+    .auth-center-wrap {
+      width: 100%;
+      max-width: 450px;
+      padding: 2rem 1.25rem;
+      margin: auto;
+    }
+
+    .auth-card-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+      position: relative;
+    }
+
+    .auth-card-box::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-full);
+    }
+
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-logo-badge {
+      width: 3rem;
+      height: 3rem;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .auth-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .auth-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .auth-tab-buttons {
+      display: flex;
+      background: var(--bg-input);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.65rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .auth-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .auth-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .auth-input-field {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem 1rem;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .auth-input-field:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .btn-auth-action {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.85rem;
+      font-size: 0.95rem;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-auth-action:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-auth-action:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .demo-box {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+
+    .btn-demo-fill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-secondary);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-demo-fill:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--accent-secondary);
+    }
+
+    /* Toast Container */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: auto;
+      animation: slideInToast 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-msg.success { border-left: 4px solid var(--accent-emerald); }
+    .toast-msg.error { border-left: 4px solid var(--accent-rose); }
+    .toast-msg.info { border-left: 4px solid var(--accent-secondary); }
+
+    @keyframes slideInToast {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-center-wrap">
+    <div class="auth-card-box">
+      
+      <div class="auth-brand">
+        <div class="auth-logo-badge">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <h1 class="auth-title">CollabAlpha Studio</h1>
+        <p class="auth-subtitle">CodeAlpha Task 4: Real-Time Communication App</p>
+      </div>
+
+      <div class="auth-tab-buttons">
+        <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn" id="tabRegister" onclick="switchTab('register')">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="auth-group">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" class="auth-input-field" placeholder="demo@codealpha.com" required>
+        </div>
+        <div class="auth-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" class="auth-input-field" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-auth-action" id="btnLogin">
+          Enter Studio Room
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+        <div class="auth-group">
+          <label>Full Name</label>
+          <input type="text" id="regName" class="auth-input-field" placeholder="e.g. Veernarayan" required>
+        </div>
+        <div class="auth-group">
+          <label>Email Address</label>
+          <input type="email" id="regEmail" class="auth-input-field" placeholder="you@example.com" required>
+        </div>
+        <div class="auth-group">
+          <label>Password (min 6 characters)</label>
+          <input type="password" id="regPassword" class="auth-input-field" placeholder="••••••••" minlength="6" required>
+        </div>
+        <button type="submit" class="btn-auth-action" id="btnRegister">
+          Create Account & Enter
+        </button>
+      </form>
+
+      <!-- Auto-fill Demo Box -->
+      <div class="demo-box">
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;">Testing as CodeAlpha Evaluator?</p>
+        <button type="button" class="btn-demo-fill" onclick="fillDemo()">
+          ⚡ Auto-Fill Demo Credentials
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    window.showToast = function(msg, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast-msg ${type}`;
+      toast.textContent = msg;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    };
+
+    function switchTab(t) {
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registerForm');
+      const tabLogin = document.getElementById('tabLogin');
+      const tabReg = document.getElementById('tabRegister');
+
+      if (t === 'login') {
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+        tabLogin.classList.add('active');
+        tabReg.classList.remove('active');
+      } else {
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+        tabLogin.classList.remove('active');
+        tabReg.classList.add('active');
+      }
+    }
+
+    function fillDemo() {
+      switchTab('login');
+      document.getElementById('loginEmail').value = 'demo@codealpha.com';
+      document.getElementById('loginPassword').value = 'password123';
+      showToast('Demo credentials auto-filled', 'info');
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('btnLogin');
+
+      btn.disabled = true;
+      btn.textContent = 'Authenticating...';
+
+      try {
+        const res = await api.login(email, password);
+        if (res.success && res.token) {
+          auth.setSession(res.token, res.user);
+          showToast(`Welcome to CollabAlpha, ${res.user.name}!`, 'success');
+          setTimeout(() => window.location.href = 'index.html', 600);
+        } else {
+          showToast(res.message || 'Login failed', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Enter Studio Room';
+        }
+      } catch (err) {
+        showToast('Server connection error', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Enter Studio Room';
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const btn = document.getElementById('btnRegister');
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      try {
+        const res = await api.register({ name, email, password });
+        if (res.success && res.token) {
+          auth.setSession(res.token, res.user);
+          showToast('Account created successfully!', 'success');
+          setTimeout(() => window.location.href = 'index.html', 600);
+        } else {
+          showToast(res.message || 'Registration failed', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Create Account & Enter';
+        }
+      } catch (err) {
+        showToast('Server connection error', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Create Account & Enter';
+      }
+    }
+  </script>
+</body>
+</html>

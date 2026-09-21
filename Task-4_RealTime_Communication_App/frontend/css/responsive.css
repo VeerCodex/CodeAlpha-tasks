@@ -1,0 +1,45 @@
+/* ==========================================================================
+   CodeAlpha Real-Time Communication App — Responsive Media Queries
+   Author: Veernarayan | CodeAlpha Full Stack Internship Task 4
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .encryption-pill {
+    display: none;
+  }
+  .studio-side-drawer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+  }
+}
+
+@media (max-width: 650px) {
+  .room-code-tag {
+    display: none;
+  }
+  .studio-top-bar {
+    padding: 0 1rem;
+  }
+  .bottom-dock-bar {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  .media-control-btn {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1rem;
+  }
+  .btn-end-meeting {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  .whiteboard-toolbar {
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

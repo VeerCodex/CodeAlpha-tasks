@@ -264,6 +264,18 @@
           "date": "2026-09-21 18:48"
         }
       ]
+    },
+    {
+      "id": "tsk-849",
+      "projectId": "proj-1",
+      "title": "CODE ALFA",
+      "description": "",
+      "column": "review",
+      "priority": "HIGH",
+      "dueDate": "2026-09-21",
+      "assigneeId": "usr-1",
+      "subtasks": [],
+      "comments": []
     }
   ]
 }

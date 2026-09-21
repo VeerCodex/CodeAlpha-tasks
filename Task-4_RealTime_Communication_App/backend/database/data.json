@@ -1,0 +1,91 @@
+{
+  "users": [
+    {
+      "id": "usr-1",
+      "name": "Veernarayan",
+      "email": "demo@codealpha.com",
+      "role": "Meeting Host & Lead Engineer",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$gfug9/Nhg0ReHOo3fMOqouNAIgVBINIn7uLuPkMlQTQqlWW0zJnCu"
+    },
+    {
+      "id": "usr-2",
+      "name": "Aarav Sharma",
+      "email": "aarav@codealpha.com",
+      "role": "Frontend Architect",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$gfug9/Nhg0ReHOo3fMOqouNAIgVBINIn7uLuPkMlQTQqlWW0zJnCu"
+    },
+    {
+      "id": "usr-3",
+      "name": "Sneha Patel",
+      "email": "sneha@codealpha.com",
+      "role": "DevOps & Cloud Engineer",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
+      "passwordHash": "$2a$10$gfug9/Nhg0ReHOo3fMOqouNAIgVBINIn7uLuPkMlQTQqlWW0zJnCu"
+    }
+  ],
+  "rooms": [
+    {
+      "code": "ALPHA-9428-TECH",
+      "title": "CodeAlpha Full Stack Sprint Standup",
+      "hostId": "usr-1",
+      "hostName": "Veernarayan",
+      "createdAt": "2026-09-21T19:00:18.179Z",
+      "isLocked": false,
+      "encryption": "256-Bit End-to-End Encrypted",
+      "messages": [
+        {
+          "id": "msg-1",
+          "userId": "usr-1",
+          "userName": "Veernarayan",
+          "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+          "content": "Welcome team! Reviewing Task 4 WebRTC video & whiteboard integration today.",
+          "time": "10:00 AM"
+        },
+        {
+          "id": "msg-2",
+          "userId": "usr-2",
+          "userName": "Aarav Sharma",
+          "userAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+          "content": "Screen sharing latency is under 40ms! Canvas strokes syncing smoothly.",
+          "time": "10:02 AM"
+        },
+        {
+          "id": "msg-1790017604276",
+          "userId": "usr-1",
+          "userName": "Veernarayan",
+          "userAvatar": "https://api.dicebear.com/7.x/initials/svg?seed=Veernarayan",
+          "content": "Automated test message from Veernarayan verification script",
+          "time": "12:36 AM"
+        }
+      ],
+      "files": [
+        {
+          "id": "fl-1",
+          "name": "Full_Stack_System_Architecture.pdf",
+          "size": "2.4 MB",
+          "uploaderName": "Veernarayan",
+          "time": "10:01 AM",
+          "url": "#"
+        },
+        {
+          "id": "fl-2",
+          "name": "Sprint_Milestone_Checklist.docx",
+          "size": "820 KB",
+          "uploaderName": "Sneha Patel",
+          "time": "10:03 AM",
+          "url": "#"
+        },
+        {
+          "id": "fl-1790017604411",
+          "name": "Sprint_Architecture_Diagram.pdf",
+          "size": "2.4 MB",
+          "uploaderName": "Veernarayan",
+          "time": "12:36 AM",
+          "url": "#"
+        }
+      ]
+    }
+  ]
+}

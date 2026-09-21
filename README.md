@@ -1,11 +1,11 @@
-# CodeAlpha Full Stack Development Internship — All 3 Tasks Completed! 🚀
+# CodeAlpha Full Stack Development Internship — All 4 Tasks Completed! 🚀
 
 ![CodeAlpha](https://img.shields.io/badge/CodeAlpha-Full_Stack_Internship-blueviolet?style=for-the-badge)
-![Status](https://img.shields.io/badge/Tasks_Completed-3_of_3_(100%25)-emerald?style=for-the-badge)
+![Status](https://img.shields.io/badge/Tasks_Completed-4_of_4_(100%25)-emerald?style=for-the-badge)
 ![Profile](https://img.shields.io/badge/Intern-Veernarayan-indigo?style=for-the-badge)
 ![Batch](https://img.shields.io/badge/Batch-September_2026-cyan?style=for-the-badge)
 
-Welcome to the official repository for **Veernarayan's** Full Stack Development Internship at **CodeAlpha**. This repository contains complete, production-ready implementations of all 3 assigned internship tasks.
+Welcome to the official repository for **Veernarayan's** Full Stack Development Internship at **CodeAlpha**. This repository contains complete, production-ready implementations of **all 4 assigned internship tasks**.
 
 ---
 
@@ -16,6 +16,7 @@ Welcome to the official repository for **Veernarayan's** Full Stack Development 
 | **Task 1** | **E-Commerce Store (AlphaStore)** | Node.js, Express, HTML5, CSS3, ES6+ JS | ✅ **Completed** | `5000` | [Task-1_Ecommerce_Store](./Task-1_Ecommerce_Store) |
 | **Task 2** | **Social Media Platform (PulseAlpha)** | Node.js, Express, HTML5, CSS3, ES6+ JS | ✅ **Completed** | `5001` | [Task-2_Social_Media_Platform](./Task-2_Social_Media_Platform) |
 | **Task 3** | **Project Management Tool (TaskAlpha)** | Node.js, Express, HTML5 Drag & Drop, CSS3 | ✅ **Completed** | `5002` | [Task-3_Project_Management_Tool](./Task-3_Project_Management_Tool) |
+| **Task 4** | **Real-Time Communication App (CollabAlpha)** | WebRTC, WebSockets (`ws`), HTML5 Canvas, Express | ✅ **Completed** | `5003` | [Task-4_RealTime_Communication_App](./Task-4_RealTime_Communication_App) |
 
 ---
 
@@ -40,9 +41,16 @@ A collaborative Kanban project management application (Trello / Asana clone) fea
 
 ---
 
-## 🚀 Running All 3 Projects Locally
+## 🌟 Task 4: Real-Time Communication App (`CollabAlpha`)
+A real-time collaborative video conferencing and interactive whiteboard studio featuring WebRTC peer-to-peer audio/video calling, camera and mic toggles, screen sharing, real-time multi-user HTML5 canvas whiteboard with drawing tools and PNG export, in-meeting chat, and shared file uploads.
+- **Port:** `http://localhost:5003`
+- **Read Documentation:** [Task 4 README](./Task-4_RealTime_Communication_App/README.md)
 
-All 3 applications run on separate ports simultaneously without any conflict:
+---
+
+## 🚀 Running All 4 Projects Locally
+
+All 4 applications run on separate ports simultaneously without any conflict:
 
 ```bash
 # Run Task 1 (Port 5000)
@@ -56,13 +64,17 @@ npm install && npm start
 # Run Task 3 (Port 5002)
 cd Task-3_Project_Management_Tool/backend
 npm install && npm start
+
+# Run Task 4 (Port 5003)
+cd Task-4_RealTime_Communication_App/backend
+npm install && npm start
 ```
 
 ---
 
 ## 🔑 Demo Evaluator Credentials
 
-Use these credentials to log in and test all 3 applications instantly (or click the **"⚡ Auto-Fill Demo Credentials"** button on any sign-in page):
+Use these credentials to log in and test all 4 applications instantly (or click the **"⚡ Auto-Fill Demo Credentials"** button on any sign-in page):
 
 - **Email:** `demo@codealpha.com`
 - **Password:** `password123`

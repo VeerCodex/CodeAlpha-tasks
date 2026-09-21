@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CollabAlpha — Real-Time Video & Collaboration Studio | CodeAlpha Task 4</title>
+  <meta name="description" content="CodeAlpha Full Stack Internship Task 4: Real-Time Communication App featuring video conferencing, screen sharing, collaborative whiteboard, and file sharing.">
+  <meta name="author" content="Veernarayan">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/whiteboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- TOP STATUS BAR -->
+  <header class="studio-top-bar">
+    <div class="room-meta-group">
+      <div class="brand-icon-studio">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="room-title-text" id="roomTitleDisplay">CodeAlpha Full Stack Sprint Standup</div>
+        <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.15rem;">
+          <span class="room-code-tag" id="btnCopyRoomCode" title="Click to copy Room Code">
+            <span id="roomCodeDisplay">ALPHA-9428-TECH</span> 📋
+          </span>
+          <span class="encryption-pill">🔒 256-Bit E2EE Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Mode Switcher -->
+    <div class="view-mode-tabs">
+      <button class="view-tab-btn active" data-view="video">📹 Video Grid</button>
+      <button class="view-tab-btn" data-view="whiteboard">🎨 Whiteboard</button>
+    </div>
+  </header>
+
+  <!-- COLLABORATION STAGE -->
+  <main class="collaboration-stage">
+
+    <!-- 1. Video Grid View -->
+    <section class="video-grid-stage" id="videoGridStage">
+      
+      <!-- Local User Video Card -->
+      <div class="video-card local-user" id="localVideoCard">
+        <video id="localVideoElement" autoplay playsinline muted></video>
+        <div class="video-avatar-placeholder" id="localAvatarFallback" style="display: none;">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Local User" class="video-avatar-img">
+          <p style="font-size: 0.85rem; font-weight: 700;">Veernarayan (You)</p>
+        </div>
+        <div class="video-card-overlay">
+          <div class="participant-name-badge">
+            <span>Veernarayan (Host)</span>
+            <span class="mic-status-icon" id="localMicStatus">🎙️</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peer 1: Aarav Sharma -->
+      <div class="video-card speaking">
+        <div class="video-avatar-placeholder">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Aarav" class="video-avatar-img">
+          <p style="font-size: 0.85rem; font-weight: 700;">Aarav Sharma</p>
+        </div>
+        <div class="video-card-overlay">
+          <div class="participant-name-badge">
+            <span>Aarav Sharma</span>
+            <span class="mic-status-icon" style="color:var(--accent-emerald)">🔊 Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peer 2: Sneha Patel -->
+      <div class="video-card">
+        <div class="video-avatar-placeholder">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Sneha" class="video-avatar-img">
+          <p style="font-size: 0.85rem; font-weight: 700;">Sneha Patel</p>
+        </div>
+        <div class="video-card-overlay">
+          <div class="participant-name-badge">
+            <span>Sneha Patel</span>
+            <span class="mic-status-icon">🎙️</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peer 3: Rohan Verma -->
+      <div class="video-card">
+        <div class="video-avatar-placeholder">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Rohan" class="video-avatar-img">
+          <p style="font-size: 0.85rem; font-weight: 700;">Rohan Verma</p>
+        </div>
+        <div class="video-card-overlay">
+          <div class="participant-name-badge">
+            <span>Rohan Verma</span>
+            <span class="mic-status-icon">🔇</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. Screen Share Stage (hidden until activated) -->
+    <section class="screen-share-view" id="screenShareStage">
+      <video id="screenShareVideo" class="screen-share-video" autoplay playsinline></video>
+    </section>
+
+    <!-- 3. Collaborative Whiteboard Stage (hidden until toggled) -->
+    <section class="whiteboard-stage" id="whiteboardStage">
+      <!-- Whiteboard Floating Toolbar -->
+      <div class="whiteboard-toolbar">
+        <div class="color-swatches-group">
+          <div class="color-swatch active" style="background:#06b6d4; color:#06b6d4;" data-color="#06b6d4"></div>
+          <div class="color-swatch" style="background:#6366f1; color:#6366f1;" data-color="#6366f1"></div>
+          <div class="color-swatch" style="background:#10b981; color:#10b981;" data-color="#10b981"></div>
+          <div class="color-swatch" style="background:#f59e0b; color:#f59e0b;" data-color="#f59e0b"></div>
+          <div class="color-swatch" style="background:#f43f5e; color:#f43f5e;" data-color="#f43f5e"></div>
+          <div class="color-swatch" style="background:#ffffff; color:#ffffff;" data-color="#ffffff"></div>
+        </div>
+
+        <div class="brush-sizes-group">
+          <button class="brush-size-btn" data-size="2">Fine</button>
+          <button class="brush-size-btn active" data-size="4">Medium</button>
+          <button class="brush-size-btn" data-size="10">Thick</button>
+        </div>
+
+        <button class="wb-action-btn" id="btnEraser">🧹 Eraser</button>
+        <button class="wb-action-btn" id="btnClearWhiteboard">🗑️ Clear</button>
+        <button class="wb-action-btn" id="btnDownloadDrawing" style="background:var(--accent-primary); border-color:transparent;">💾 Save PNG</button>
+      </div>
+
+      <!-- Canvas Area -->
+      <div class="whiteboard-canvas-wrap">
+        <canvas id="whiteboardCanvas"></canvas>
+      </div>
+    </section>
+
+    <!-- In-Meeting Chat Drawer -->
+    <aside class="studio-side-drawer" id="chatDrawer">
+      <div class="drawer-header">
+        <span>💬 In-Meeting Chat</span>
+        <button class="btn-close-drawer" onclick="meeting.toggleDrawer('chat')">✕</button>
+      </div>
+      <div class="drawer-body" id="meetingChatList"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInputMessage" class="chat-input-field" placeholder="Send a message to peers...">
+        <button class="wb-action-btn" style="background:var(--accent-primary); border:none;" onclick="meeting.handleSendChat()">Send</button>
+      </div>
+    </aside>
+
+    <!-- In-Meeting Files Drawer -->
+    <aside class="studio-side-drawer" id="filesDrawer">
+      <div class="drawer-header">
+        <span>📁 Shared Files & Docs</span>
+        <button class="btn-close-drawer" onclick="meeting.toggleDrawer('files')">✕</button>
+      </div>
+      <div class="drawer-body" id="meetingFilesList"></div>
+      <div style="padding: 1rem; border-top: 1px solid var(--border-subtle);">
+        <button class="wb-action-btn" style="width:100%; justify-content:center; padding:0.6rem; background:var(--accent-primary); border:none;" onclick="meeting.handleUploadDemoFile()">
+          + Share New File
+        </button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- BOTTOM MEDIA CONTROLS DOCK -->
+  <footer class="bottom-dock-bar">
+    <button class="media-control-btn" id="btnToggleMic" title="Toggle Microphone">
+      🎙️
+    </button>
+    <button class="media-control-btn" id="btnToggleCam" title="Toggle Camera">
+      📹
+    </button>
+    <button class="media-control-btn" id="btnToggleScreen" title="Share Screen">
+      🖥️
+    </button>
+    <button class="media-control-btn" id="btnToggleChat" title="In-Meeting Chat">
+      💬
+    </button>
+    <button class="media-control-btn" id="btnToggleFiles" title="Shared Documents">
+      📁
+    </button>
+    <button class="btn-end-meeting" id="btnEndCall" title="Leave Session">
+      <span>Leave Call</span>
+    </button>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/webrtc.js"></script>
+  <script src="js/whiteboard.js"></script>
+  <script src="js/meeting.js"></script>
+</body>
+</html>
