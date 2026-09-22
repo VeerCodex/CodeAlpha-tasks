@@ -21,7 +21,7 @@ Welcome to the official repository for **Veernarayan's** Full Stack Development 
 ---
 
 ## 🌟 Task 1: Simple E-Commerce Store (`AlphaStore`)
-A cyber-luxury full-stack e-commerce web application featuring product listings, responsive filtering, quick-view modals, persistent shopping cart drawer, promo coupon discounts, multi-step checkout, and order history invoice generation.
+An Amazon & Flipkart style full-stack e-commerce web application featuring Roboto typography, location pin selector, category sub-nav, festival sale banners, product listings, responsive filtering, quick-view modals, persistent shopping cart drawer, promo coupon discounts, multi-step checkout, and order history invoice generation.
 - **Port:** `http://localhost:5000`
 - **Read Documentation:** [Task 1 README](./Task-1_Ecommerce_Store/README.md)
 
@@ -42,7 +42,7 @@ A collaborative Kanban project management application (Trello / Asana clone) fea
 ---
 
 ## 🌟 Task 4: Real-Time Communication App (`CollabAlpha`)
-A real-time collaborative video conferencing and interactive whiteboard studio featuring WebRTC peer-to-peer audio/video calling, camera and mic toggles, screen sharing, real-time multi-user HTML5 canvas whiteboard with drawing tools and PNG export, in-meeting chat, and shared file uploads.
+A Google Meet style real-time video conferencing studio featuring WebRTC peer-to-peer audio/video calling, camera and mic toggles, screen sharing, floating bottom controls dock, collaborative HTML5 canvas Jamboard whiteboard with high-precision trackpad and touch drawing support, in-meeting chat, and shared file uploads.
 - **Port:** `http://localhost:5003`
 - **Read Documentation:** [Task 4 README](./Task-4_RealTime_Communication_App/README.md)
 

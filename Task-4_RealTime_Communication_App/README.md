@@ -5,26 +5,25 @@
 ![Tech Stack](https://img.shields.io/badge/Tech-WebRTC_|_WebSockets_|_Node.js_|_Canvas_API-cyan?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)
 
-A cutting-edge **Real-Time Video Conferencing & Collaborative Whiteboard Studio ("CollabAlpha")** built from scratch for the **CodeAlpha Full Stack Development Internship Program** by **Veernarayan**.
+A cutting-edge **Google Meet style Real-Time Video Conferencing & Collaborative Jamboard Studio ("CollabAlpha")** built from scratch for the **CodeAlpha Full Stack Development Internship Program** by **Veernarayan**.
 
 ---
 
 ## 🌟 Features Overview
 
-### 📹 1. Video Conferencing & Media Controls
+### 📹 1. Google Meet UI & Video Conferencing
+- **Google Meet Design System:** Dark slate background (`#202124`), rounded video tiles with bottom-left participant badges, active speaker blue ring (`#8ab4f8`), and 3-dots tile options.
 - **WebRTC Video & Audio Calling:** Native browser-to-browser media streaming with peer connectivity.
-- **Microphone Toggle:** Instant mic mute/unmute with visual indicators.
+- **Microphone Toggle:** Instant mic mute/unmute with Google Red indicator (`#ea4335`).
 - **Camera Toggle:** Turn video camera feed on/off with fallback to high-resolution user avatar.
-- **Screen Sharing:** One-click screen sharing using browser `getDisplayMedia` API.
-- **Multi-Participant Grid:** Responsive dynamic video grid displaying active participants, speaking indicators, and role badges.
+- **Screen Sharing & Hand Raise:** One-click screen sharing using browser `getDisplayMedia` API and interactive ✋ Hand Raise toggle.
+- **Signature Google Meet Bottom Dock:** Floating dock with live meeting clock, clickable room code, circular media controls, and red pill leave button.
 
-### 🎨 2. Collaborative Real-Time Whiteboard
-- **Interactive HTML5 Canvas:** Smooth real-time collaborative drawing engine.
-- **Creative Tools:** Pen drawing, Eraser, Rectangle, Circle, and Arrow drawing tools.
-- **Color Palette & Stroke Slider:** 6 curated colors + stroke size selector (2px to 24px).
-- **Undo / Clear All:** One-click canvas clearing and undo actions.
-- **Export / Download:** Download whiteboard diagrams directly as PNG images.
-- **WebSocket Broadcast:** Live whiteboard stroke synchronization across all connected room peers.
+### 🎨 2. Collaborative Real-Time Jamboard Whiteboard
+- **High-Precision Pointer Events Engine:** 100% butter-smooth drawing support for **laptop trackpads**, touchpads, mice, stylus, and touchscreens with `touch-action: none` and pointer capture.
+- **Google Jamboard Creative Tools:** Pen drawing, Eraser tool, fine/medium/marker brush sizes, and 6 curated Google color swatches.
+- **Clear & Export:** One-click canvas clearing and direct PNG export download.
+- **WebSocket Synchronization:** Live stroke broadcasting across all connected room peers.
 
 ### 💬 3. Real-Time In-Meeting Chat
 - **Instant Messaging:** WebSocket-powered chat with zero polling latency.

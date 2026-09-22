@@ -5,18 +5,21 @@
 ![Tech Stack](https://img.shields.io/badge/Tech-Node.js_|_Express_|_HTML5_|_CSS3_|_JavaScript-cyan?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)
 
-A modern, production-grade **Full Stack E-Commerce Application** built from scratch for the **CodeAlpha Full Stack Development Internship Program** by **Veernarayan**.
+A flagship **Amazon & Flipkart style Full Stack E-Commerce Web Application** built from scratch for the **CodeAlpha Full Stack Development Internship Program** by **Veernarayan**.
 
 ---
 
 ## 🌟 Features Overview
 
-### 🛍️ 1. Storefront & Dynamic Product Catalog
+### 🛍️ 1. Storefront & Dynamic Product Catalog (Amazon / Flipkart Retail Theme)
+- **Retail Design System:** Flipkart Royal Blue header (`#2874f0`), pure white product cards on cool-gray retail canvas (`#f1f3f6`), and Amazon/Flipkart typography (**Roboto & Inter**).
+- **Location Selector:** *"📍 Deliver to New Delhi 110001"* widget with express dispatch alerts.
 - **Curated Catalog:** 12 premium tech and lifestyle products with high-resolution imagery, specifications, ratings, and stock tracking.
-- **Dynamic Category Filtering:** Instant category switching (`Audio & Sound`, `Wearables`, `Photography`, `Desk Essentials`, `Smart Gadgets`).
+- **Dynamic Category Filtering & Sub-Nav:** Instant category switching (`Audio & Sound`, `Wearables`, `Keyboards`, `Accessories`, `Flash Deals`).
 - **Live Search Autocomplete:** Instant debounced search filtering by product title, description, and category.
 - **Price Range Slider & In-Stock Toggle:** Filter by maximum budget and availability.
 - **Sorting Options:** Sort by Featured, Price (Low to High), Price (High to Low), Highest Rating, or New Arrivals.
+- **Trust Badges:** `✦ Assured` delivery trust tags, green rating pills (`★ 4.8`), original price strikethroughs, and bold discount percentage badges (`33% off`).
 
 ### 🔍 2. Product Details & Customer Reviews
 - **Quick-View Modal & Dedicated Product Page:** Dual-view system with multi-image gallery switching.
@@ -24,7 +27,8 @@ A modern, production-grade **Full Stack E-Commerce Application** built from scra
 - **Interactive Review System:** Star rating selection and verified feedback submission stored in persistent backend.
 
 ### 🛒 3. Interactive Cart Drawer & Multi-Step Checkout
-- **Slide-Out Cart Drawer:** Real-time cart drawer with quantity stepper `[- 1 +]`, subtotal calculation, and instant removal.
+- **Slide-Out Cart Drawer:** Real-time cart drawer with Flipkart-style **"PRICE DETAILS"** breakdown (Price, Discount on MRP, Delivery: `FREE`, Total Amount).
+- **Retail Action Buttons:** Flipkart Yellow (`#ff9f00`) **"Add to Cart"** and Flipkart Orange (`#fb641b`) **"Buy Now"**.
 - **Promo Coupon System:**
   - `CODEALPHA10`: 10% discount on cart.
   - `ALPHA20`: 20% discount on orders over $100.
@@ -50,8 +54,8 @@ A modern, production-grade **Full Stack E-Commerce Application** built from scra
 
 | Layer | Technologies Used |
 | :--- | :--- |
-| **Frontend** | HTML5, Modern Vanilla CSS (Glassmorphism, CSS Grid, Flexbox, Custom Variables), ES6+ JavaScript |
-| **Styling & Fonts** | Plus Jakarta Sans, Outfit, Lucide SVGs, Cyber Luxury Dark Theme |
+| **Frontend** | HTML5, Vanilla CSS3 (Amazon & Flipkart Retail Theme, Flexbox, CSS Grid), ES6+ JavaScript |
+| **Styling & Fonts** | Google Fonts Roboto (`weights 300, 400, 500, 700, 900`), Inter, Flipkart Blue, Amazon Yellow & Orange CTAs |
 | **Backend** | Node.js, Express.js, CORS, Body-Parser |
 | **Authentication** | JSON Web Tokens (`jsonwebtoken`), Password Hashing (`bcryptjs`) |
 | **Database** | Persistent JSON / File Engine with atomic file transactions |
