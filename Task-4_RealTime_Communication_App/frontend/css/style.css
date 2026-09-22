@@ -1,41 +1,42 @@
 /* ==========================================================================
-   CodeAlpha Real-Time Communication App (CollabAlpha) — Studio Styles
+   CodeAlpha Real-Time Communication App (CollabAlpha) — Google Meet UI Theme
    Author: Veernarayan | CodeAlpha Full Stack Internship Task 4
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #080c14;
-  --bg-panel: #0e1422;
-  --bg-card: #141c2e;
-  --bg-input: #1a233a;
+  /* Google Meet Signature Color Tokens */
+  --meet-bg: #202124;              /* Google Meet background slate */
+  --meet-tile-bg: #3c4043;         /* Video tile background */
+  --meet-tile-border: #4d5156;     /* Subtle tile border */
+  --meet-control-bg: #3c4043;      /* Circular control button */
+  --meet-control-hover: #4e5256;   /* Control hover */
+  --meet-control-active: #8ab4f8;  /* Active control blue */
+  --meet-red: #ea4335;             /* Leave call / Muted red */
+  --meet-red-hover: #d93025;       /* Red hover */
+  --meet-blue: #1a73e8;            /* Google Blue */
+  --meet-blue-light: #8ab4f8;      /* Active speaker ring */
+  --meet-green: #34a853;           /* Google Green */
+  --meet-yellow: #fbbc04;          /* Google Yellow */
+  
+  --meet-drawer-bg: #202124;       /* Side drawer */
+  --meet-input-bg: #2d2f31;        /* Side drawer inputs */
+  --meet-border-subtle: #3c4043;   /* Dividers */
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(99, 102, 241, 0.4);
+  --text-primary: #ffffff;
+  --text-secondary: #e8eaed;
+  --text-muted: #9aa0a6;
 
-  --accent-primary: #6366f1;
-  --accent-secondary: #06b6d4;
-  --accent-emerald: #10b981;
-  --accent-rose: #f43f5e;
-  --accent-amber: #f59e0b;
-  --accent-purple: #a855f7;
+  --font-meet: 'Google Sans', 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #06b6d4 100%);
-
-  --text-main: #f8fafc;
-  --text-sub: #94a3b8;
-  --text-muted: #64748b;
-
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
-
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
-  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+  --shadow-meet: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
 }
 
 *, *::before, *::after {
@@ -45,154 +46,159 @@
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--bg-dark);
-  color: var(--text-main);
+  font-family: var(--font-meet);
+  background-color: var(--meet-bg);
+  color: var(--text-primary);
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* TOP STATUS BAR */
+/* 1. TOP HEADER (Google Meet Minimalist Bar) */
 .studio-top-bar {
-  height: 3.8rem;
-  background: var(--bg-panel);
-  border-bottom: 1px solid var(--border-subtle);
+  height: 3.5rem;
+  background: var(--meet-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1.5rem;
   z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .room-meta-group {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
 }
+
 .brand-icon-studio {
   width: 2.2rem;
   height: 2.2rem;
-  background: var(--gradient-primary);
+  background: var(--meet-blue);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 2px 6px rgba(26, 115, 232, 0.4);
 }
+
 .room-title-text {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
+
 .room-code-tag {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  color: var(--accent-secondary);
-  font-family: monospace;
-  font-weight: 700;
-  font-size: 0.8rem;
-  padding: 0.25rem 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--meet-blue-light);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
   border-radius: var(--radius-full);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  transition: background 0.15s;
 }
 .room-code-tag:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: var(--accent-secondary);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .encryption-pill {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: var(--accent-emerald);
+  gap: 0.35rem;
+  color: #81c995;
   font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.65rem;
+  font-weight: 500;
+  background: rgba(52, 168, 83, 0.12);
+  padding: 0.2rem 0.6rem;
   border-radius: var(--radius-full);
 }
 
-/* View Switcher Tabs */
+/* View Mode Switcher Pills */
 .view-mode-tabs {
   display: flex;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: #2d2f31;
   border-radius: var(--radius-full);
   padding: 0.25rem;
+  gap: 0.25rem;
 }
 .view-tab-btn {
-  padding: 0.4rem 0.95rem;
   background: transparent;
   border: none;
-  color: var(--text-sub);
+  color: var(--text-muted);
+  font-family: inherit;
   font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
   border-radius: var(--radius-full);
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.15s;
 }
 .view-tab-btn.active {
-  background: var(--accent-primary);
-  color: white;
+  background: var(--meet-control-bg);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* MAIN COLLABORATION STAGE */
+/* 2. MAIN MEETING STAGE */
 .collaboration-stage {
   flex: 1;
   display: flex;
   position: relative;
   overflow: hidden;
+  padding: 0.75rem 1rem 0.5rem;
+  gap: 1rem;
 }
 
-/* Video Grid Area */
+/* Video Grid Stage (Google Meet Dynamic Grid) */
 .video-grid-stage {
   flex: 1;
-  padding: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.25rem;
-  overflow-y: auto;
-  align-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.75rem;
+  height: 100%;
+  width: 100%;
 }
 
-/* Participant Video Card */
 .video-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  background: var(--meet-tile-bg);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   position: relative;
-  aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg);
+  border: 2px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+.video-card.speaking {
+  border-color: var(--meet-blue-light);
+  box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.3);
+}
+
 .video-card video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.video-card.local-user {
-  border-color: var(--border-glow);
-}
-.video-card.speaking {
-  border-color: var(--accent-emerald);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-}
 
-/* Fallback Avatar Placeholder */
+/* Google Meet Avatar Fallback (when camera is off) */
 .video-avatar-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
 }
 .video-avatar-img {
@@ -200,27 +206,29 @@ body {
   height: 5.5rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 2.5px solid var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Name Tag & Status Indicators */
+/* Participant Pill Overlay (Bottom-Left in Google Meet) */
 .video-card-overlay {
   position: absolute;
   bottom: 0.75rem;
   left: 0.75rem;
-  right: 0.75rem;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  right: 0.75rem;
   pointer-events: none;
 }
 .participant-name-badge {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
-  font-weight: 700;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-xs);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -229,18 +237,43 @@ body {
   font-size: 0.85rem;
 }
 
-/* Screen Sharing Stage */
-.screen-share-view {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: #000;
-}
-.screen-share-view.active {
+/* Tile 3-Dots Menu (Top-Right) */
+.tile-more-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+.video-card:hover .tile-more-btn {
+  opacity: 1;
+}
+.tile-more-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* 3. SCREEN SHARE VIEW */
+.screen-share-view {
+  display: none;
+  flex: 1;
+  background: #000;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+.screen-share-view.active {
+  display: flex;
 }
 .screen-share-video {
   max-width: 100%;
@@ -248,192 +281,256 @@ body {
   object-fit: contain;
 }
 
-/* Whiteboard Stage */
+/* 4. WHITEBOARD STAGE (Google Jamboard Style) */
 .whiteboard-stage {
   display: none;
   flex: 1;
-  height: 100%;
-  flex-direction: column;
-  background: #0d121e;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 .whiteboard-stage.active {
   display: flex;
+  flex-direction: column;
 }
 
-/* IN-MEETING SIDE DRAWERS (Chat & Files) */
+/* 5. GOOGLE MEET SIDE DRAWERS (Chat & People) */
 .studio-side-drawer {
-  width: 340px;
-  background: var(--bg-panel);
-  border-left: 1px solid var(--border-subtle);
+  width: 360px;
+  background: var(--meet-drawer-bg);
+  border-left: 1px solid var(--meet-border-subtle);
+  border-radius: var(--radius-sm);
   display: none;
   flex-direction: column;
-  height: 100%;
+  z-index: 40;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.3);
 }
 .studio-side-drawer.open {
   display: flex;
 }
 
 .drawer-header {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.25rem 0.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--meet-border-subtle);
 }
 .btn-close-drawer {
   background: transparent;
   border: none;
   color: var(--text-muted);
+  font-size: 1.15rem;
   cursor: pointer;
-  font-size: 1.1rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: color 0.15s;
+}
+.btn-close-drawer:hover {
+  color: #ffffff;
 }
 
 .drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
-/* Chat Bubbles */
-.chat-msg-row {
+.chat-bubble {
+  background: #2d2f31;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  max-width: 90%;
+}
+.chat-meta {
   display: flex;
-  gap: 0.65rem;
-}
-.chat-msg-avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-.chat-msg-bubble {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.85rem;
-  font-size: 0.85rem;
-  flex: 1;
-}
-.chat-msg-author {
-  font-weight: 700;
-  font-size: 0.78rem;
-  color: var(--accent-secondary);
-  display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+}
+.chat-sender {
+  font-weight: 600;
+  color: var(--meet-blue-light);
+}
+.chat-time {
+  color: var(--text-muted);
+}
+.chat-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .chat-input-row {
-  padding: 1rem;
-  border-top: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.25rem;
+  border-top: 1px solid var(--meet-border-subtle);
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 .chat-input-field {
   flex: 1;
-  background: var(--bg-input);
-  border: 1px solid var(--border-subtle);
+  background: var(--meet-input-bg);
+  border: 1px solid var(--meet-border-subtle);
+  color: #ffffff;
+  padding: 0.65rem 1rem;
   border-radius: var(--radius-full);
-  padding: 0.55rem 0.9rem;
-  color: var(--text-main);
-  font-size: 0.85rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+}
+.chat-input-field:focus {
+  border-color: var(--meet-blue-light);
 }
 
-/* File Sharing Items */
-.file-card-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.75rem 1rem;
+/* 6. GOOGLE MEET BOTTOM FLOATING CONTROLS DOCK */
+.bottom-dock-bar {
+  height: 5rem;
+  background: var(--meet-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.file-meta h4 {
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-.file-meta p {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-.file-dl-btn {
-  background: rgba(99, 102, 241, 0.15);
-  color: var(--accent-primary);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  padding: 0.35rem 0.65rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.78rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-/* BOTTOM MEDIA CONTROL DOCK */
-.bottom-dock-bar {
-  height: 4.8rem;
-  background: var(--bg-panel);
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
   padding: 0 1.5rem;
   position: relative;
   z-index: 50;
 }
 
+/* Left: Time & Room Code */
+.dock-left-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-width: 200px;
+}
+.dock-meeting-time {
+  font-weight: 600;
+}
+.dock-divider-pipe {
+  color: var(--meet-border-subtle);
+}
+.dock-room-code {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.dock-room-code:hover {
+  color: #ffffff;
+}
+
+/* Center: Circular Media Controls */
+.dock-center-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .media-control-btn {
-  width: 3rem;
-  height: 3rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-main);
+  background: var(--meet-control-bg);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.15s ease-in-out;
+  position: relative;
+}
+.media-control-btn:hover {
+  background: var(--meet-control-hover);
+  transform: translateY(-1px);
+}
+.media-control-btn.muted, .media-control-btn.off {
+  background: var(--meet-red);
+  color: #ffffff;
+}
+.media-control-btn.muted:hover, .media-control-btn.off:hover {
+  background: var(--meet-red-hover);
+}
+.media-control-btn.active-blue {
+  background: rgba(138, 180, 248, 0.2);
+  color: var(--meet-blue-light);
+  border: 1px solid var(--meet-blue-light);
+}
+
+/* Leave Call Red Pill Button */
+.btn-end-meeting {
+  background: var(--meet-red);
+  color: #ffffff;
+  border: none;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.15s;
+}
+.btn-end-meeting:hover {
+  background: var(--meet-red-hover);
+}
+
+/* Right: Info, People, Chat, Activities */
+.dock-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 200px;
+  justify-content: flex-end;
+}
+.action-icon-btn {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 1.15rem;
-  transition: all 0.2s;
+  transition: background 0.15s;
   position: relative;
 }
-.media-control-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+.action-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
-.media-control-btn.muted, .media-control-btn.off {
-  background: rgba(244, 63, 94, 0.15);
-  border-color: var(--accent-rose);
-  color: var(--accent-rose);
+.action-icon-btn.active {
+  color: var(--meet-blue-light);
+  background: rgba(138, 180, 248, 0.15);
 }
-.media-control-btn.active-dock {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
-
-.btn-end-meeting {
-  background: var(--accent-rose);
+.badge-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--meet-blue);
   color: white;
-  border: none;
+  font-size: 0.65rem;
   font-weight: 700;
-  padding: 0.65rem 1.4rem;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.4);
-  transition: all 0.2s;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-}
-.btn-end-meeting:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
+  justify-content: center;
 }

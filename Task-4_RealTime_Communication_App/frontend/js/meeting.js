@@ -143,6 +143,51 @@ window.meeting = {
       }
     });
 
+    // Raise Hand
+    const raiseHandBtn = document.getElementById('btnRaiseHand');
+    if (raiseHandBtn) {
+      let isHandRaised = false;
+      raiseHandBtn.addEventListener('click', () => {
+        isHandRaised = !isHandRaised;
+        raiseHandBtn.classList.toggle('active-blue', isHandRaised);
+        window.showToast(isHandRaised ? '✋ You raised your hand' : '✋ You lowered your hand', 'info');
+      });
+    }
+
+    // Dock Whiteboard Toggle
+    const wbBtn = document.getElementById('btnToggleWhiteboard');
+    if (wbBtn) {
+      wbBtn.addEventListener('click', () => {
+        const newView = this.activeView === 'video' ? 'whiteboard' : 'video';
+        this.switchView(newView);
+        document.querySelectorAll('.view-tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-view') === newView);
+        });
+        wbBtn.classList.toggle('active-blue', newView === 'whiteboard');
+      });
+    }
+
+    // Meeting Info / Copy Link
+    const infoBtn = document.getElementById('btnMeetingInfo');
+    if (infoBtn) {
+      infoBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          window.showToast('📋 Meeting link copied to clipboard!', 'success');
+        });
+      });
+    }
+
+    // Live Google Meet Clock
+    const updateMeetClock = () => {
+      const el = document.getElementById('dockClock');
+      if (el) {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+    };
+    setInterval(updateMeetClock, 1000);
+    updateMeetClock();
+
     // Chat Input Enter Key
     const chatInput = document.getElementById('chatInputMessage');
     if (chatInput) {

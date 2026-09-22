@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CodeAlpha Real-Time Communication App — Whiteboard & Drawing Styles
+   CodeAlpha Real-Time Communication App — Google Jamboard Style Whiteboard
    Author: Veernarayan | CodeAlpha Full Stack Internship Task 4
    ========================================================================== */
 
@@ -7,31 +7,36 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at center, #111728 0%, #0a0e1a 100%);
+  background: #ffffff;
   cursor: crosshair;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 #whiteboardCanvas {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
+  cursor: crosshair;
 }
 
-/* Floating Whiteboard Toolbar */
+/* Floating Google Jamboard Style Toolbar */
 .whiteboard-toolbar {
   position: absolute;
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(14, 20, 34, 0.9);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #dadce0;
   border-radius: var(--radius-full);
-  padding: 0.45rem 1rem;
+  padding: 0.4rem 1rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  box-shadow: var(--shadow-lg);
+  gap: 0.85rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   z-index: 20;
 }
 
@@ -42,61 +47,67 @@
   gap: 0.45rem;
 }
 .color-swatch {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.35rem;
+  height: 1.35rem;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s;
+  transition: transform 0.15s, border-color 0.15s;
 }
 .color-swatch:hover {
-  transform: scale(1.2);
+  transform: scale(1.18);
 }
 .color-swatch.active {
-  border-color: white;
-  transform: scale(1.2);
-  box-shadow: 0 0 10px currentColor;
+  border-color: #202124;
+  transform: scale(1.18);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .brush-sizes-group {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  border-left: 1px solid #dadce0;
+  border-right: 1px solid #dadce0;
+  padding: 0 0.6rem;
 }
 .brush-size-btn {
-  background: rgba(255, 255, 255, 0.08);
+  background: #f1f3f4;
   border: none;
-  color: var(--text-main);
+  color: #3c4043;
   padding: 0.25rem 0.6rem;
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s;
 }
 .brush-size-btn.active {
-  background: var(--accent-primary);
+  background: var(--meet-blue);
+  color: #ffffff;
 }
 
 .wb-action-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-main);
-  padding: 0.35rem 0.8rem;
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  color: #3c4043;
+  padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  transition: background 0.2s;
+  transition: background 0.15s;
 }
 .wb-action-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #e8eaed;
 }
 .wb-action-btn.active {
-  background: var(--accent-rose);
-  border-color: var(--accent-rose);
+  background: var(--meet-red);
+  color: #ffffff;
+  border-color: transparent;
 }
 
 /* Toast */
@@ -110,17 +121,17 @@
   gap: 0.6rem;
 }
 .toast {
-  background: #141c2e;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-main);
+  background: #202124;
+  border: 1px solid #3c4043;
+  color: #ffffff;
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   font-size: 0.88rem;
   display: flex;
   align-items: center;
   gap: 0.6rem;
 }
-.toast.success { border-left: 4px solid var(--accent-emerald); }
-.toast.info { border-left: 4px solid var(--accent-primary); }
-.toast.error { border-left: 4px solid var(--accent-rose); }
+.toast.success { border-left: 4px solid #34a853; }
+.toast.info { border-left: 4px solid var(--meet-blue); }
+.toast.error { border-left: 4px solid var(--meet-red); }

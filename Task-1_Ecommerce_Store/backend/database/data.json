@@ -16,7 +16,7 @@
       "originalPrice": 279.99,
       "rating": 4.9,
       "reviewCount": 128,
-      "stock": 24,
+      "stock": 23,
       "badge": "BESTSELLER",
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
       "images": [
@@ -90,7 +90,7 @@
       "originalPrice": 119.99,
       "rating": 4.7,
       "reviewCount": 65,
-      "stock": 12,
+      "stock": 11,
       "badge": "NEW",
       "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80",
       "images": [
@@ -410,6 +410,44 @@
     }
   ],
   "orders": [
+    {
+      "id": "ORD-95387",
+      "userId": "guest-mrveer601@gmail.com",
+      "date": "2026-09-22T20:14:39.190Z",
+      "status": "Confirmed",
+      "items": [
+        {
+          "id": "prod-3",
+          "name": "Lumix Retro Instant Film Camera",
+          "price": 89.99,
+          "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80",
+          "category": "Photography",
+          "quantity": 1
+        },
+        {
+          "id": "prod-1",
+          "name": "AuraWave Pro Noise-Cancelling Headphones",
+          "price": 199.99,
+          "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+          "category": "Audio & Sound",
+          "quantity": 1
+        }
+      ],
+      "shippingAddress": {
+        "fullName": "Veernarayan kumar",
+        "email": "mrveer601@gmail.com",
+        "phone": "+917827258519",
+        "street": "house no.187,Gandhi nagar Gohand",
+        "city": "GOHAND",
+        "state": "Uttar Pradesh",
+        "pincode": "210430"
+      },
+      "paymentMethod": "UPI / NetBanking",
+      "subtotal": 289.98,
+      "discount": 0,
+      "shipping": 0,
+      "total": 289.98
+    },
     {
       "id": "ORD-91059",
       "userId": "usr-demo",
