@@ -74,6 +74,23 @@ const app = {
     }
   },
 
+  filterByCategory(categoryName) {
+    this.activeCategory = categoryName;
+    const chips = document.querySelectorAll('.category-chip');
+    chips.forEach(chip => {
+      if (chip.getAttribute('data-cat') === categoryName) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
+      }
+    });
+    this.loadProducts();
+    const catalogEl = document.getElementById('catalog');
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  },
+
   bindEvents() {
     // Search input (both nav search and catalog search if present)
     const searchInputs = document.querySelectorAll('.search-input');
@@ -196,9 +213,12 @@ const app = {
       <div class="product-card" data-id="${prod.id}">
         <div class="product-thumb-wrap">
           ${badgeHtml}
+          <button class="wishlist-heart-btn" title="Add to Wishlist" onclick="this.classList.toggle('active'); event.stopPropagation();">
+            ♥
+          </button>
           <img src="${prod.image}" alt="${prod.name}" class="product-thumb" loading="lazy">
           <button class="quick-view-overlay-btn" onclick="app.openModal('${prod.id}')">
-            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
             </svg>
@@ -212,21 +232,32 @@ const app = {
             <a href="javascript:void(0)" onclick="app.openModal('${prod.id}')">${prod.name}</a>
           </h3>
 
-          <div class="product-rating">
-            <span class="stars-solid">★</span>
-            <span class="rating-num">${prod.rating.toFixed(1)}</span>
-            <span class="review-count">(${prod.reviewCount})</span>
+          <div class="product-rating-wrap">
+            <div class="rating-pill-green">
+              <span>★</span> ${prod.rating.toFixed(1)}
+            </div>
+            <span class="review-count-text">(${prod.reviewCount.toLocaleString()})</span>
+            <div class="assured-badge-tag">
+              <span class="gold-star">✦</span> Assured
+            </div>
+          </div>
+
+          <div class="product-price-row">
+            <span class="current-price">$${prod.price.toFixed(2)}</span>
+            ${prod.originalPrice ? `<span class="original-price">$${prod.originalPrice.toFixed(2)}</span>` : ''}
+            ${discountPct ? `<span class="discount-percentage">${discountPct}% off</span>` : ''}
+          </div>
+
+          <div class="delivery-timeline-text">
+            ⚡ <strong>FREE Delivery</strong> by Tomorrow
           </div>
 
           <div class="product-footer">
-            <div class="price-block">
-              <span class="current-price">$${prod.price.toFixed(2)}</span>
-              ${prod.originalPrice ? `<span class="original-price">$${prod.originalPrice.toFixed(2)} <span style="color:var(--accent-success);font-weight:600;">(-${discountPct}%)</span></span>` : ''}
-            </div>
-            <button class="add-to-cart-btn" onclick="app.handleAddToCart('${prod.id}', event)" title="Add to Cart">
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-              </svg>
+            <button class="btn-card-cart" onclick="app.handleAddToCart('${prod.id}', event)">
+              Add to Cart
+            </button>
+            <button class="btn-card-buy" onclick="app.handleBuyNow('${prod.id}', event)">
+              Buy Now
             </button>
           </div>
         </div>
@@ -243,6 +274,19 @@ const app = {
       }
     } catch (err) {
       window.showToast('Could not add to cart', 'error');
+    }
+  },
+
+  async handleBuyNow(productId, e) {
+    if (e) e.stopPropagation();
+    try {
+      const res = await api.getProductById(productId);
+      if (res.success && res.product) {
+        cart.addItem(res.product, 1);
+        cart.openDrawer();
+      }
+    } catch (err) {
+      window.showToast('Could not process order', 'error');
     }
   },
 

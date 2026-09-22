@@ -58,6 +58,14 @@
           "userAvatar": "https://api.dicebear.com/7.x/initials/svg?seed=Veernarayan",
           "content": "Automated test message from Veernarayan verification script",
           "time": "12:36 AM"
+        },
+        {
+          "id": "msg-1790017872299",
+          "userId": "usr-1",
+          "userName": "Veernarayan",
+          "userAvatar": "https://api.dicebear.com/7.x/initials/svg?seed=Veernarayan",
+          "content": "HIII",
+          "time": "12:41 AM"
         }
       ],
       "files": [
